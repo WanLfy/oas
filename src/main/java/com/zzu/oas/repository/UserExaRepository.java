@@ -12,6 +12,7 @@ import java.util.List;
  * @Date 2017/10/27 11:02
  */
 public interface UserExaRepository extends JpaRepository<UserExa, UserExaPK> {
-    @Query("select ue from UserExa ue where ue.queId=?1")
-    public List<UserExa> findUserExaByQueId(int queId);
+
+    @Query(value = "select ue from UserExa as ue where ue.userFlag=?1")
+    public List<UserExa> findUserExasByUserFlag(String userFlag);
 }

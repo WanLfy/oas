@@ -19,9 +19,9 @@ public class UserExaController {
     @Autowired
     private UserExaRepository userExaRepository;
 
-    @RequestMapping("/UserExas/{queId}")
-    public List<UserExa> getUserExaByQueId(@PathVariable("queId") int queId) {
-        System.out.println(queId);
-        return userExaRepository.findUserExaByQueId(queId);
+    @RequestMapping("/ues/{userFlag}")
+    public List<UserExa> getUserExaByQueId(@PathVariable("userFlag") String userFlag) {
+        List<UserExa> a = userExaRepository.findUserExasByUserFlag(userFlag);
+        return a;
     }
 }
