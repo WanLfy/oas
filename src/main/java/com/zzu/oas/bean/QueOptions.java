@@ -8,14 +8,14 @@ import java.io.Serializable;
  * Created by qinhao on 2017/10/27 10:54.
  */
 @Entity
-@Table(name = "t_que_option")
-@IdClass(QueOption.QueOptionPk.class)
-public class QueOption {
+@Table(name = "t_que_options")
+@IdClass(QueOptions.QueOptionPk.class)
+public class QueOptions {
 
     @Id
     private int queId;
     @Id
-    @Column(name = "options",length = 100)
+    @Column(name = "options", length = 100)
     private String options;
 
 
@@ -54,5 +54,13 @@ public class QueOption {
         public void setOptions(String options) {
             this.options = options;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "QueOptions{" +
+                "queId=" + queId +
+                ", options='" + options + '\'' +
+                '}';
     }
 }

@@ -12,7 +12,7 @@ public class QueBank {
     @Id
     @GeneratedValue
     private int queId;
-    @Column(length = 2, nullable = false)
+    @Column(length = 20, nullable = false)
     private String libType;
     @Column(length = 1, nullable = false)
     private int type;
@@ -49,5 +49,15 @@ public class QueBank {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "QueBank{" +
+                "queId=" + queId +
+                ", libType='" + libType + '\'' +
+                ", type=" + type +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

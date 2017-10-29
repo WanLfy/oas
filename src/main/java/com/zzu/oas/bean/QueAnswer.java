@@ -53,4 +53,12 @@ public class QueAnswer{
             this.answer = answer;
         }
     }
+
+    @Override
+    public String toString() {
+        return "QueAnswer{" +
+                "queId=" + queId +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }

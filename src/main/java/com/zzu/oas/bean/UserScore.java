@@ -102,4 +102,19 @@ public class UserScore {
     public void setJudgeSumScore(int judgeSumScore) {
         this.judgeSumScore = judgeSumScore;
     }
+
+    @Override
+    public String toString() {
+        return "UserScore{" +
+                "userFlag='" + userFlag + '\'' +
+                ", name='" + name + '\'' +
+                ", school='" + school + '\'' +
+                ", major='" + major + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", post='" + post + '\'' +
+                ", choiceSumScore=" + choiceSumScore +
+                ", judgeSumScore=" + judgeSumScore +
+                '}';
+    }
 }

@@ -75,4 +75,16 @@ public class ExaConfig {
     public void setJudgeScore(int judgeScore) {
         this.judgeScore = judgeScore;
     }
+
+    @Override
+    public String toString() {
+        return "ExaConfig{" +
+                "id=" + id +
+                ", choiceNum=" + choiceNum +
+                ", judgeNum=" + judgeNum +
+                ", shortNum=" + shortNum +
+                ", choiceScore=" + choiceScore +
+                ", judgeScore=" + judgeScore +
+                '}';
+    }
 }

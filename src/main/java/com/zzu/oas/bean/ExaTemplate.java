@@ -55,4 +55,12 @@ public class ExaTemplate {
             this.queId = queId;
         }
     }
+
+    @Override
+    public String toString() {
+        return "ExaTemplate{" +
+                "tempId=" + tempId +
+                ", queId=" + queId +
+                '}';
+    }
 }

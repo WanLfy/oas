@@ -84,4 +84,14 @@ public class UserExa {
             this.queId = queId;
         }
     }
+
+    @Override
+    public String toString() {
+        return "UserExa{" +
+                "userFlag='" + userFlag + '\'' +
+                ", tempId=" + tempId +
+                ", queId=" + queId +
+                ", userAnswer='" + userAnswer + '\'' +
+                '}';
+    }
 }
