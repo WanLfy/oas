@@ -1,29 +1,25 @@
 package com.zzu.oas.bean;
 
-import com.zzu.oas.bean.pk.UserExaPK;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 用户提交答卷
- *
- * @Author qinhao
- * @Date 2017/10/27 10:58
+ * Created by qinhao on 2017/10/27 10:58.
  */
 @Entity
-@IdClass(UserExaPK.class)
+@IdClass(UserExa.UserExaPK.class)
 @Table(name = "t_user_exa")
+
 public class UserExa {
     @Id
+    @Column(length = 10)
     private String userFlag;
     @Id
     private int tempId;
     @Id
     private int queId;
+    @Column(length = 100)
     private String userAnswer;
 
     public String getUserFlag() {
@@ -56,5 +52,36 @@ public class UserExa {
 
     public void setUserAnswer(String userAnswer) {
         this.userAnswer = userAnswer;
+    }
+
+    public static class UserExaPK implements Serializable {
+
+        private String userFlag;
+        private int tempId;
+        private int queId;
+
+        public String getUserFlag() {
+            return userFlag;
+        }
+
+        public void setUserFlag(String userFlag) {
+            this.userFlag = userFlag;
+        }
+
+        public int getTempId() {
+            return tempId;
+        }
+
+        public void setTempId(int tempId) {
+            this.tempId = tempId;
+        }
+
+        public int getQueId() {
+            return queId;
+        }
+
+        public void setQueId(int queId) {
+            this.queId = queId;
+        }
     }
 }

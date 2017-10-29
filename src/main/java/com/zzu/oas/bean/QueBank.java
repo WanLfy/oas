@@ -1,15 +1,22 @@
 package com.zzu.oas.bean;
 
+import javax.persistence.*;
+
 /**
  * 题目
- * @Author qinhao
- * @Date 2017/10/27 10:53
+ * Created by qinhao on 2017/10/27 10:53.
  */
+@Entity
+@Table(name = "t_que_bank")
 public class QueBank {
-
+    @Id
+    @GeneratedValue
     private int queId;
+    @Column(length = 2, nullable = false)
     private String libType;
+    @Column(length = 1, nullable = false)
     private int type;
+    @Column(length = 200)
     private String title;
 
     public int getQueId() {

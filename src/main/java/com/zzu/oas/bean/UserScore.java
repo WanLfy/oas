@@ -1,18 +1,34 @@
 package com.zzu.oas.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
- * @Author qinhao
- * @Date 2017/10/27 11:00
+ * Created by qinhao on 2017/10/27 11:00.
  */
+@Entity
+@Table(name = "t_user_score")
 public class UserScore {
+    @Id
+    @Column(length = 10)
     private String userFlag;
+    @Column(length = 10, nullable = false)
     private String name;
+    @Column(length = 30, nullable = false)
     private String school;
+    @Column(length = 30, nullable = false)
     private String major;
+    @Column(length = 11, nullable = false)
     private String phone;
+    @Column(length = 30, nullable = false)
     private String email;
+    @Column(length = 10, nullable = false)
     private String post;
+    @Column(length = 2)
     private int choiceSumScore;
+    @Column(length = 2)
     private int judgeSumScore;
 
     public String getUserFlag() {

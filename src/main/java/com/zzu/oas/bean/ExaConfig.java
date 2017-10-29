@@ -1,18 +1,40 @@
 package com.zzu.oas.bean;
 
+import groovy.lang.GrabExclude;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * 试卷配置
- *
- * @Author qinhao
- * @Date 2017/10/27 10:48
+ * Created by qinhao on 2017/10/27 10:48.
  */
+@Entity
+@Table(name = "t_exa_config")
 public class ExaConfig {
-
+    @Id
+    @GrabExclude
+    private int id;
+    @Column(length = 2)
     private int choiceNum;
+    @Column(length = 2)
     private int judgeNum;
+    @Column(length = 2)
     private int shortNum;
+    @Column(length = 2)
     private int choiceScore;
+    @Column(length = 2)
     private int judgeScore;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getChoiceNum() {
         return choiceNum;

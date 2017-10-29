@@ -1,15 +1,23 @@
 package com.zzu.oas.bean;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * 题目选项
- *
- * @Author qinhao
- * @Date 2017/10/27 10:54
+ * Created by qinhao on 2017/10/27 10:54.
  */
-public class QueOption extends QueBank {
+@Entity
+@Table(name = "t_que_option")
+@IdClass(QueOption.QueOptionPk.class)
+public class QueOption {
 
+    @Id
     private int queId;
-    private String option;
+    @Id
+    @Column(name = "options",length = 100)
+    private String options;
+
 
     public int getQueId() {
         return queId;
@@ -19,11 +27,32 @@ public class QueOption extends QueBank {
         this.queId = queId;
     }
 
-    public String getOption() {
-        return option;
+    public String getOptions() {
+        return options;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptions(String options) {
+        this.options = options;
+    }
+
+    public static class QueOptionPk implements Serializable {
+        private int queId;
+        private String options;
+
+        public int getQueId() {
+            return queId;
+        }
+
+        public void setQueId(int queId) {
+            this.queId = queId;
+        }
+
+        public String getOptions() {
+            return options;
+        }
+
+        public void setOptions(String options) {
+            this.options = options;
+        }
     }
 }
