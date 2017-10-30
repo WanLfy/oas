@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${formBean}" th:action="@{/commit}" method="post">
+    <input th:value="111" th:name="name"/>
+    <input th:value="111" th:name="age"/>
+    <input th:value="111" th:name="strs"/>
+    <input th:value="222" th:name="strs"/>
+    <input th:value="333" th:name="strs"/>
+    <input th:value="444" th:name="answers[0].queId"/>
+    <input th:value="sss" th:name="answers[0].answer"/>
+
+    <input type="submit" value="kk"/>
+</form>
+</body>
+</html>

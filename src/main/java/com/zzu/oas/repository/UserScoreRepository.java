@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserScoreRepository extends JpaRepository<UserScore, String> {
 
-    public UserScore findUserScoreByUserFlag(String userFlag);
 }

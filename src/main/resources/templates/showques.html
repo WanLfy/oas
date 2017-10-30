@@ -5,6 +5,50 @@
     <title>Title</title>
 </head>
 <body>
-<p th:text="${testName}"></p>
+<h3>showques.html</h3>
+<div>
+    <form th:action="@{/commit}" th:object="${formBean}" th:method="post">
+        <div>
+            <!-- 选择题 -->
+            <div th:each="choice,item:${exaPaper.choiceList}">
+                <input th:type="hidden" th:value="${choice.queBank.queId}" th:field="*{answers[0].queId}"/>
+                <dl>
+                    <dt th:text="${choice.queBank.title}"></dt>
+                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                               th:text="'A、'+${choice.queOptionsList[0].options}"
+                               th:value="${choice.queOptionsList[0].options}"/></dd>
+                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                               th:text="'B、'+${choice.queOptionsList[1].options}"
+                               th:value="${choice.queOptionsList[1].options}"/></dd>
+                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                               th:text="'C、'+${choice.queOptionsList[2].options}"
+                               th:value="${choice.queOptionsList[2].options}"/></dd>
+                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                               th:text="'D、'+${choice.queOptionsList[3].options}"
+                               th:value="${choice.queOptionsList[2].options}"/></dd>
+                </dl>
+            </div>
+            <!-- 选择题 -->
+            <!-- 判断题 -->
+            <div th:each="judge:${exaPaper.judgeList}">
+                <dl>
+                    <dt th:text="${judge.title}"></dt>
+                    <dd><input th:type="radio" th:name="${judge.queId}" th:text="T"/></dd>
+                    <dd><input th:type="radio" th:name="${judge.queId}" th:text="F"/></dd>
+                </dl>
+            </div>
+            <!-- 判断题 -->
+            <!-- 简答题 -->
+            <div th:each="shortt:${exaPaper.shortList}">
+                <dl>
+                    <dt th:text="${shortt.title}"></dt>
+                    <dd><textarea th:style="'resize:none'" th:rows="3"></textarea></dd>
+                </dl>
+            </div>
+            <!-- 简答题 -->
+        </div>
+        <input th:type="submit" th:value="提交"/>
+    </form>
+</div>
 </body>
 </html>
