@@ -5,6 +5,7 @@ import com.zzu.oas.bean.QueBank;
 import java.util.List;
 
 /**
+ * 试卷
  * Created by qinhao on 2017/10/30.
  */
 public class ExaPaper {

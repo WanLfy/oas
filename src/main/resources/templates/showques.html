@@ -7,42 +7,46 @@
 <body>
 <h3>showques.html</h3>
 <div>
-    <form th:action="@{/commit}" th:object="${formBean}" th:method="post">
+    <form th:action="@{/commit}" th:object="${formBean}" method="post">
         <div>
-            <!-- 选择题 -->
-            <div th:each="choice,item:${exaPaper.choiceList}">
-                <input th:type="hidden" th:value="${choice.queBank.queId}" th:field="*{answers[0].queId}"/>
+            <div th:each="choice,c:${exaPaper.choiceList}">
+                <input type="hidden" th:value="${choice.queBank.queId}"
+                       th:name="${'canswers['+(c.index)+'].queId'}"/>
                 <dl>
                     <dt th:text="${choice.queBank.title}"></dt>
-                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
                                th:text="'A、'+${choice.queOptionsList[0].options}"
                                th:value="${choice.queOptionsList[0].options}"/></dd>
-                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
                                th:text="'B、'+${choice.queOptionsList[1].options}"
                                th:value="${choice.queOptionsList[1].options}"/></dd>
-                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
                                th:text="'C、'+${choice.queOptionsList[2].options}"
                                th:value="${choice.queOptionsList[2].options}"/></dd>
-                    <dd><input th:type="radio" th:name="${item.index}" th:field="*{answers[0].answer}"
+                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
                                th:text="'D、'+${choice.queOptionsList[3].options}"
-                               th:value="${choice.queOptionsList[2].options}"/></dd>
+                               th:value="${choice.queOptionsList[3].options}"/></dd>
                 </dl>
             </div>
-            <!-- 选择题 -->
             <!-- 判断题 -->
-            <div th:each="judge:${exaPaper.judgeList}">
+            <div th:each="judge,j:${exaPaper.judgeList}">
+                <input type="hidden" th:value="${judge.queId}"
+                       th:name="${'janswers['+(j.index)+'].queId'}"/>
                 <dl>
                     <dt th:text="${judge.title}"></dt>
-                    <dd><input th:type="radio" th:name="${judge.queId}" th:text="T"/></dd>
-                    <dd><input th:type="radio" th:name="${judge.queId}" th:text="F"/></dd>
+                    <dd><input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}" value="1"/>T</dd>
+                    <dd><input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}" value="0"/>F</dd>
                 </dl>
             </div>
             <!-- 判断题 -->
             <!-- 简答题 -->
-            <div th:each="shortt:${exaPaper.shortList}">
+            <div th:each="shortt,s:${exaPaper.shortList}">
+                <input type="hidden" th:value="${shortt.queId}"
+                       th:name="${'sanswers['+(s.index)+'].queId'}"/>
                 <dl>
                     <dt th:text="${shortt.title}"></dt>
-                    <dd><textarea th:style="'resize:none'" th:rows="3"></textarea></dd>
+                    <dd><textarea style="'resize:none'" rows="3"
+                                  th:name="${'sanswers['+(s.index)+'].userAnswer'}"></textarea></dd>
                 </dl>
             </div>
             <!-- 简答题 -->
@@ -50,5 +54,26 @@
         <input th:type="submit" th:value="提交"/>
     </form>
 </div>
+
+<script>
+    function getOption(n) {
+        m = '';
+        switch (n) {
+            case 0:
+                m = 'A';
+                break;
+            case 1:
+                m = 'B';
+                break;
+            case 2:
+                m = 'C';
+                break;
+            case 3:
+                m = 'D';
+                break;
+        }
+        return m;
+    }
+</script>
 </body>
 </html>

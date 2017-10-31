@@ -1,48 +1,34 @@
 package com.zzu.oas.controller;
 
-import com.zzu.oas.bean.QueBank;
-import com.zzu.oas.bean.QueOptions;
-import com.zzu.oas.repository.QueBankRepository;
-import com.zzu.oas.repository.QueOptionsRepository;
+import com.zzu.oas.service.ExaService;
 import com.zzu.oas.util.ExaPaper;
-import com.zzu.oas.util.MergeQueOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Collections;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
+ * 试卷初始化
  * Created by qinhao on 2017/10/27 12:08.
  */
 @Controller
 public class MakeExaController {
 
     @Autowired
-    private QueBankRepository queBankRepository;
-    @Autowired
-    private QueOptionsRepository queOptionRepository;
+    private ExaService exaService;
 
-    @RequestMapping("/test")
-    public String allTest(Model model) {
-        // 选择题
-        List<QueBank> queBenkList = queBankRepository.getQuesByTemplate(0, 1);
-        List<QueOptions> optionsList = queOptionRepository.getQueOptionsByTemplate(1);
-        // 随机排序
-        Collections.shuffle(optionsList);
-        List<MergeQueOptions> choiceList = MergeQueOptions.getMergeQueOptionsList(queBenkList, optionsList);
-        // 判断题
-        List<QueBank> judgeList = queBankRepository.getQuesByTemplate(1, 1);
-        // 简答题
-        List<QueBank> shortList = queBankRepository.getQuesByTemplate(2, 1);
-        System.out.println(choiceList.toString());
+    @RequestMapping("/exaInit")
+    public String exaInit(Model model, HttpServletRequest request) {
+        // 获取题库类型
+        HttpSession session = request.getSession();
+        String libType = (String) session.getAttribute("libType");
         // 生成试卷
-        ExaPaper exaPaper = new ExaPaper();
-        exaPaper.setChoiceList(choiceList);
-        exaPaper.setJudgeList(judgeList);
-        exaPaper.setShortList(shortList);
+        int tempId = exaService.getTempIdByLibType(libType);
+        session.setAttribute("tempId", tempId);
+        ExaPaper exaPaper = exaService.initExPaper(tempId);
         model.addAttribute("exaPaper", exaPaper);
         return "showques";
     }

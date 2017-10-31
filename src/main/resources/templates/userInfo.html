@@ -5,8 +5,22 @@
     <title>用户信息</title>
 </head>
 <body>
-<form th:action="" th:method="post" th:object="${userInfo}">
-
-</form>
+<div>
+    <h3>填写个人信息</h3>
+    <form th:action="@{/initUserInfo}" method="post" th:object="${user}">
+        姓名：<input name="name"/><br/>
+        学校：<select name="school">
+        <option value="">请选择院校</option>
+        <option value="清华">清华大学</option>
+        <option value="北大">北京大学</option>
+        <option value="郑州">郑州大学</option>
+    </select><br/>
+        专业：<input name="major"/><br/>
+        电话：<input name="phone"/><br/>
+        邮箱：<input name="email"/><br/>
+        应聘岗位：<input name="post"/><br/>
+        <input type="submit" value="开始考试"/>
+    </form>
+</div>
 </body>
 </html>

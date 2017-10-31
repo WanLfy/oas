@@ -1,8 +1,6 @@
 package com.zzu.oas.controller;
 
-import com.zzu.oas.bean.UserScore;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -13,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @RequestMapping(value = "/")
-    public String home(Model model) {
-        model.addAttribute("userInfo", new UserScore());
-        return "test";
+    public String home() {
+        return "index";
     }
 }

@@ -1,9 +1,6 @@
 package com.zzu.oas.bean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by qinhao on 2017/10/27 11:00.

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 选择题题目和待选项合并
  * Created by qinhao on 2017/10/30.
  */
 public class MergeQueOptions {

@@ -13,5 +13,5 @@ public interface QueOptionsRepository extends JpaRepository<QueOptions, QueOptio
 
     // 通过模板获取选择题选项
     @Query(nativeQuery = true, value = "SELECT * FROM t_que_options o WHERE o.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?1)")
-    public List<QueOptions> getQueOptionsByTemplate(int queId);
+    public List<QueOptions> getQueOptionsByTemplate(int tempId);
 }
