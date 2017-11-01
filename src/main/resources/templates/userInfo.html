@@ -8,6 +8,7 @@
 <div>
     <h3>填写个人信息</h3>
     <form th:action="@{/initUserInfo}" method="post" th:object="${user}">
+        <input type="hidden" name="libType" th:value="${libType}"/>
         姓名：<input name="name"/><br/>
         学校：<select name="school">
         <option value="">请选择院校</option>

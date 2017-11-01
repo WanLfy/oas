@@ -9,6 +9,6 @@ import java.util.Map;
  */
 public interface QueService {
 
-    public Map<String, Integer> getRightNum(UserAnswers userAnswers);
+    public Map<String, Integer> getRightNum(UserAnswers userAnswers) throws Exception;
 }
 

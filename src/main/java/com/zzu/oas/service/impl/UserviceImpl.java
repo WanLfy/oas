@@ -6,6 +6,7 @@ import com.zzu.oas.repository.UserExaRepository;
 import com.zzu.oas.repository.UserScoreRepository;
 import com.zzu.oas.service.UserService;
 import com.zzu.oas.util.UserAnswers;
+import com.zzu.oas.util.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,17 @@ public class UserviceImpl implements UserService {
 
 
     @Override
-    public void save(UserScore user, int tempId, UserAnswers userAnswers) {
+    public void save(UserInfo user, int tempId, UserAnswers userAnswers) {
         // 保存用户信息
-        userScoreRepository.save(user);
+        userScoreRepository.insert(user.getUserFlag(),
+                user.getName(),
+                user.getSchool(),
+                user.getMajor(),
+                user.getPhone(),
+                user.getEmail(),
+                user.getPost(),
+                user.getChoiceSumScore(),
+                user.getJudgeSumScore());
         // 保存用户答案
         for (UserExa u : userAnswers.getCanswers()) {
             userExaRepository.saveUserExa(user.getUserFlag(), tempId, u.getQueId(), u.getUserAnswer());

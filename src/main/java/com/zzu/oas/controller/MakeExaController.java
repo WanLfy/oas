@@ -2,6 +2,7 @@ package com.zzu.oas.controller;
 
 import com.zzu.oas.service.ExaService;
 import com.zzu.oas.util.ExaPaper;
+import com.zzu.oas.util.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +22,20 @@ public class MakeExaController {
     private ExaService exaService;
 
     @RequestMapping("/exaInit")
-    public String exaInit(Model model, HttpServletRequest request) {
+    public String exaInit(HttpServletRequest request, Model model) {
         // 获取题库类型
         HttpSession session = request.getSession();
-        String libType = (String) session.getAttribute("libType");
-        // 生成试卷
-        int tempId = exaService.getTempIdByLibType(libType);
-        session.setAttribute("tempId", tempId);
-        ExaPaper exaPaper = exaService.initExPaper(tempId);
-        model.addAttribute("exaPaper", exaPaper);
+        UserInfo user = (UserInfo) session.getAttribute("user");
+        String libType = user.getLibType();
+        if (session.getAttribute("exaPaper") == null) {
+            int tempId = exaService.getTempIdByLibType(libType);
+            // 生成试卷
+            ExaPaper exaPaper = exaService.initExPaper(tempId);
+            session.setAttribute("exaPaper", exaPaper);
+            // 设置tempId
+            user.setTempId(tempId);
+            session.setAttribute("user", user);
+        }
         return "showques";
     }
 }

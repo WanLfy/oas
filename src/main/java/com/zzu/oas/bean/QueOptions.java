@@ -15,7 +15,7 @@ public class QueOptions {
     @Id
     private int queId;
     @Id
-    @Column(name = "options", length = 100)
+    @Column(name = "options")
     private String options;
 
 

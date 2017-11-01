@@ -21,7 +21,7 @@ public class QueServiceImpl implements QueService {
     private QueAnswerRepository queAnswerRepository;
 
     @Override
-    public Map<String, Integer> getRightNum(UserAnswers userAnswers) {
+    public Map<String, Integer> getRightNum(UserAnswers userAnswers) throws Exception {
         Map<String, Integer> map = new HashMap<String, Integer>();
         int cNum = 0;
         int jNum = 0;
@@ -34,12 +34,16 @@ public class QueServiceImpl implements QueService {
         return map;
     }
 
-    public int getNum(List<UserExa> userExas) {
+    public int getNum(List<UserExa> userExas) throws Exception {
         int num = 0;
-        for (UserExa userExa : userExas) {
-            if (queAnswerRepository.comparison(userExa.getQueId(), userExa.getUserAnswer()) > 0) {
-                num++;
+        if (userExas.size() != 0) {
+            for (UserExa userExa : userExas) {
+                if (queAnswerRepository.comparison(userExa.getQueId(), userExa.getUserAnswer()) > 0) {
+                    num++;
+                }
             }
+        } else {
+            throw new Exception("用户答案为空");
         }
         return num;
     }

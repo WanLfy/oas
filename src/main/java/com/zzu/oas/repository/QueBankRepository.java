@@ -14,4 +14,8 @@ public interface QueBankRepository extends JpaRepository<QueBank, Integer> {
     // 通过模板获取 type 题目列表
     @Query(nativeQuery = true, value = "SELECT * FROM t_que_bank b WHERE b.type=?1 AND b.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?2)")
     public List<QueBank> getQuesByTemplate(int type, int tempId);
+
+    // 随机获取num道libType题库的type类型的题目
+    @Query(nativeQuery = true, value = "SELECT que_id FROM t_que_bank WHERE lib_type=?1 AND type=?2 ORDER BY RAND() LIMIT ?3")
+    public List<Integer> getRandQue(String libType, int type, int num);
 }

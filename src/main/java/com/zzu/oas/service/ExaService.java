@@ -18,5 +18,5 @@ public interface ExaService {
     public int getTempIdByLibType(String libType);
 
     // 随机生成temp
-    public void makeTemp();
+    public void makeTemplate(String libType);
 }

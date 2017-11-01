@@ -5,11 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-<h3>showques.html</h3>
+<h3>考试试卷</h3>
 <div>
     <form th:action="@{/commit}" th:object="${formBean}" method="post">
+        <input type="hidden" name="tempId" th:value="${tempId}"/>
         <div>
-            <div th:each="choice,c:${exaPaper.choiceList}">
+            <div th:each="choice,c:${session.exaPaper.choiceList}">
                 <input type="hidden" th:value="${choice.queBank.queId}"
                        th:name="${'canswers['+(c.index)+'].queId'}"/>
                 <dl>
@@ -29,7 +30,7 @@
                 </dl>
             </div>
             <!-- 判断题 -->
-            <div th:each="judge,j:${exaPaper.judgeList}">
+            <div th:each="judge,j:${session.exaPaper.judgeList}">
                 <input type="hidden" th:value="${judge.queId}"
                        th:name="${'janswers['+(j.index)+'].queId'}"/>
                 <dl>
@@ -40,7 +41,7 @@
             </div>
             <!-- 判断题 -->
             <!-- 简答题 -->
-            <div th:each="shortt,s:${exaPaper.shortList}">
+            <div th:each="shortt,s:${session.exaPaper.shortList}">
                 <input type="hidden" th:value="${shortt.queId}"
                        th:name="${'sanswers['+(s.index)+'].queId'}"/>
                 <dl>

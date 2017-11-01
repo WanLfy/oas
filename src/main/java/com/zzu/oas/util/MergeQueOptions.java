@@ -28,7 +28,10 @@ public class MergeQueOptions {
             List<QueOptions> matchOptionsList = new ArrayList<QueOptions>();
             for (QueOptions options : optionsList) {
                 if (queBank.getQueId() == options.getQueId()) {
-                    matchOptionsList.add(options);
+                    QueOptions qo = new QueOptions();
+                    qo.setQueId(options.getQueId());
+                    qo.setOptions(options.getOptions().trim());
+                    matchOptionsList.add(qo);
                 }
             }
             // 合并添加

@@ -1,7 +1,7 @@
 package com.zzu.oas.service;
 
-import com.zzu.oas.bean.UserScore;
 import com.zzu.oas.util.UserAnswers;
+import com.zzu.oas.util.UserInfo;
 
 /**
  * Created by qinhao on 2017/10/31.
@@ -9,5 +9,5 @@ import com.zzu.oas.util.UserAnswers;
 public interface UserService {
 
     // 保存用户信息
-    public void save(UserScore user, int tempId, UserAnswers userAnswers);
+    public void save(UserInfo user, int tempId, UserAnswers userAnswers);
 }

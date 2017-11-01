@@ -1,11 +1,11 @@
 package com.zzu.oas.controller;
 
 import com.zzu.oas.bean.ExaConfig;
-import com.zzu.oas.bean.UserScore;
 import com.zzu.oas.service.ExaService;
 import com.zzu.oas.service.QueService;
 import com.zzu.oas.service.UserService;
 import com.zzu.oas.util.UserAnswers;
+import com.zzu.oas.util.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,17 +33,24 @@ public class CommitExaController {
     @RequestMapping(value = "/commit", method = RequestMethod.POST)
     public String commit(@ModelAttribute("formBean") UserAnswers userAnswers, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserScore user = (UserScore) session.getAttribute("user");
-        int tempId = (int) session.getAttribute("tempId");
+        UserInfo user = (UserInfo) session.getAttribute("user");
+        int tempId = user.getTempId();
         // 分数
         ExaConfig exaConfig = exaService.getExaConfig();
-        Map<String, Integer> map = queService.getRightNum(userAnswers);
+        Map<String, Integer> map = null;
+        try {
+            map = queService.getRightNum(userAnswers);
+        } catch (Exception e) {
+            // 用户答案为空
+            return "redirect:/exaInit";
+        }
         int choiceSumScore = map.get("cNum") * exaConfig.getChoiceScore();
         int judgeSumScore = map.get("jNum") * exaConfig.getJudgeScore();
         user.setChoiceSumScore(choiceSumScore);
         user.setJudgeSumScore(judgeSumScore);
         // 存储用户信息
         userService.save(user, tempId, userAnswers);
+        session.invalidate();
         return "index";
     }
 

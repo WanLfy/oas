@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/makeTemp}" method="post">
+    生成试卷模板：
+    <select name="libType">
+        <option value="">请选择题目类型</option>
+        <option value="Java">Java开发</option>
+        <option value="test">软件测试</option>
+    </select><br/>
+    <input type="submit" value="完成"/>
+</form>
+</body>
+</html>
