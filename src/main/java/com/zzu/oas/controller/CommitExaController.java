@@ -51,7 +51,9 @@ public class CommitExaController {
         // 存储用户信息
         userService.save(user, tempId, userAnswers);
         session.invalidate();
-        return "index";
+        // 清除 session 信息
+
+        return "finished";
     }
 
 }

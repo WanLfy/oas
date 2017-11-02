@@ -2,60 +2,138 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <title>Title</title>
-</head>
-<body>
-<h3>考试试卷</h3>
-<div>
-    <form th:action="@{/commit}" th:object="${formBean}" method="post">
-        <input type="hidden" name="tempId" th:value="${tempId}"/>
-        <div>
-            <div th:each="choice,c:${session.exaPaper.choiceList}">
-                <input type="hidden" th:value="${choice.queBank.queId}"
-                       th:name="${'canswers['+(c.index)+'].queId'}"/>
-                <dl>
-                    <dt th:text="${choice.queBank.title}"></dt>
-                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
-                               th:text="'A、'+${choice.queOptionsList[0].options}"
-                               th:value="${choice.queOptionsList[0].options}"/></dd>
-                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
-                               th:text="'B、'+${choice.queOptionsList[1].options}"
-                               th:value="${choice.queOptionsList[1].options}"/></dd>
-                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
-                               th:text="'C、'+${choice.queOptionsList[2].options}"
-                               th:value="${choice.queOptionsList[2].options}"/></dd>
-                    <dd><input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
-                               th:text="'D、'+${choice.queOptionsList[3].options}"
-                               th:value="${choice.queOptionsList[3].options}"/></dd>
-                </dl>
-            </div>
-            <!-- 判断题 -->
-            <div th:each="judge,j:${session.exaPaper.judgeList}">
-                <input type="hidden" th:value="${judge.queId}"
-                       th:name="${'janswers['+(j.index)+'].queId'}"/>
-                <dl>
-                    <dt th:text="${judge.title}"></dt>
-                    <dd><input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}" value="1"/>T</dd>
-                    <dd><input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}" value="0"/>F</dd>
-                </dl>
-            </div>
-            <!-- 判断题 -->
-            <!-- 简答题 -->
-            <div th:each="shortt,s:${session.exaPaper.shortList}">
-                <input type="hidden" th:value="${shortt.queId}"
-                       th:name="${'sanswers['+(s.index)+'].queId'}"/>
-                <dl>
-                    <dt th:text="${shortt.title}"></dt>
-                    <dd><textarea style="'resize:none'" rows="3"
-                                  th:name="${'sanswers['+(s.index)+'].userAnswer'}"></textarea></dd>
-                </dl>
-            </div>
-            <!-- 简答题 -->
-        </div>
-        <input th:type="submit" th:value="提交"/>
-    </form>
-</div>
 
+</head>
+<body style="overflow-y:scroll;padding-top: 100px;">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <h2>在线考试系统</h2>
+        <p>倒计时60分钟</p>
+    </div>
+</nav>
+<div class="row col-sm-10 col-sm-offset-1" style="padding-top: 0px">
+    <form th:action="@{/commit}" th:object="${formBean}" method="post" class="form-group" id="userExaForm">
+        <!-- 模板号 -->
+        <input type="hidden" name="tempId" th:value="${tempId}"/>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="choice">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            选择题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="choice">
+                    <div class="panel-body">
+                        <div th:each="choice,c:${session.exaPaper.choiceList}">
+                            <!-- 题号 -->
+                            <input type="hidden" th:value="${choice.queBank.queId}"
+                                   th:name="${'canswers['+(c.index)+'].queId'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((c.index)+1+'、')+(choice.queBank.title)}"></div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
+                                                   th:text="'A、'+${choice.queOptionsList[0].options}"
+                                                   th:value="${choice.queOptionsList[0].options}"/>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
+                                                   th:text="'B、'+${choice.queOptionsList[1].options}"
+                                                   th:value="${choice.queOptionsList[1].options}"/>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
+                                                   th:text="'C、'+${choice.queOptionsList[2].options}"
+                                                   th:value="${choice.queOptionsList[2].options}"/>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'canswers['+(c.index)+'].userAnswer'}"
+                                                   th:text="'D、'+${choice.queOptionsList[3].options}"
+                                                   th:value="${choice.queOptionsList[3].options}"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="judge">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            判断题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="judge">
+                    <div class="panel-body">
+                        <div th:each="judge,j:${session.exaPaper.judgeList}">
+                            <input type="hidden" th:value="${judge.queId}"
+                                   th:name="${'janswers['+(j.index)+'].queId'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((j.index)+1+'、')+(judge.title)}"></div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}"
+                                                   value="1"/>正确
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'janswers['+(j.index)+'].userAnswer'}"
+                                                   value="0"/>错误
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="short">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            简答题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="short">
+                    <div class="panel-body">
+                        <div th:each="shortt,s:${session.exaPaper.shortList}">
+                            <input type="hidden" th:value="${shortt.queId}"
+                                   th:name="${'sanswers['+(s.index)+'].queId'}"/>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((s.index)+1+'、')+(shortt.title)}"></div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="4"
+                                              th:name="${'sanswers['+(s.index)+'].userAnswer'}"
+                                              style="resize:none;"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="col-sm-2 col-sm-offset-10">
+        <button class="btn btn-danger">放弃</button>
+        <button class="btn btn-primary" id="subBtn">提交</button>
+    </div>
+</div>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script>
     function getOption(n) {
         m = '';
@@ -75,6 +153,11 @@
         }
         return m;
     }
+
+    // 提交
+    $("#subBtn").click(function () {
+        $("#userExaForm").submit();
+    });
 </script>
 </body>
 </html>
