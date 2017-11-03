@@ -2,61 +2,115 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
-    <title>考试入口</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <title>个人信息</title>
+    <style rel="stylesheet">
+        body {
+            overflow-y: scroll;
+        }
+
+        input[class='form-control'] {
+            min-width: 200px;
+            max-width: 200px;
+        }
+
+        select {
+            min-width: 200px;
+        }
+    </style>
 </head>
 <body>
-<div class="jumbotron">
-    <h2>在线考试系统</h2>
-    <p>请根据您的身份选择对应的考试入口</p>
-</div>
-<form th:action="@{/init}" method="post">
-    <div class="row col-sm-12">
-        <div class="col-sm-2 col-sm-offset-1">
-            <div class="thumbnail">
-                <img src="pic/kaifa.png"/>
-                <div class="caption" style="text-align: center">
-                    <h4>开发人员在线考试</h4>
-                    <p>
-                        <button class="btn btn-primary" value="Java">参加</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="thumbnail">
-                <img src="pic/kaifa.PNG"/>
-                <div class="caption" style="text-align: center">
-                    <h4>测试人员在线考试</h4>
-                    <p>
-                        <button class="btn btn-primary" value="test">参加</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="thumbnail">
-                <img src="pic/kaifa.PNG"/>
-                <div class="caption" style="text-align: center">
-                    <h4>管理员入口</h4>
-                    <p>
-                        <a href="/admin" class="btn btn-primary" role="button">进入</a>
-                    </p>
-                </div>
-            </div>
+<div class="container-fluid">
+    <!-- top -->
+    <div class="row">
+        <div class="jumbotron col-md-12">
+            <h2>在线考试系统</h2>
+            <p>请填写您的个人详细信息</p>
         </div>
     </div>
-    <input type="hidden" name="libType" value="" id="libType"/>
-</form>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $("button").click(function () {
-            $("#libType").val($(this).val());
-        });
-    })
+    <!-- top -->
+    <!-- form -->
+    <div class="row">
+        <form class="form-horizontal" action="/initUserInfo" method="post">
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="school" class="col-sm-2 control-label">学校</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="school">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="major" class="col-sm-2 control-label">专业</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="major">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">手机号</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="phone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="post" class="col-sm-2 control-label">应聘岗位</label>
+                        <div class="col-sm-2">
+                            <select class="col-sm-2 form-control" id="post" name="post">
+                                <option value="">请选择</option>
+                                <option value="">Java开发人员</option>
+                                <option value="">测试人员</option>
+                                <option value="">C开发人员</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <button type="button" class="btn btn-primary">开始考试</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- form -->
+</div>
 
-</script>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>

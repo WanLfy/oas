@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <title>考试入口</title>
+</head>
+<body>
+<div class="jumbotron">
+    <h2>在线考试系统</h2>
+    <p>请根据您的身份选择对应的考试入口</p>
+</div>
+<form th:action="@{/init}" method="post">
+    <div class="row col-sm-12">
+        <div class="col-sm-2 col-sm-offset-1">
+            <div class="thumbnail">
+                <img src="pic/kaifa.png"/>
+                <div class="caption" style="text-align: center">
+                    <h4>开发人员在线考试</h4>
+                    <p>
+                        <button class="btn btn-primary" value="Java">参加</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <img src="pic/kaifa.PNG"/>
+                <div class="caption" style="text-align: center">
+                    <h4>测试人员在线考试</h4>
+                    <p>
+                        <button class="btn btn-primary" value="test">参加</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <img src="pic/kaifa.PNG"/>
+                <div class="caption" style="text-align: center">
+                    <h4>管理员入口</h4>
+                    <p>
+                        <a href="/admin" class="btn btn-primary" role="button">进入</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="libType" value="" id="libType"/>
+</form>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("button").click(function () {
+            $("#libType").val($(this).val());
+        });
+    })
+
+</script>
+</body>
+</html>

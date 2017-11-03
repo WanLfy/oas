@@ -2,15 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/time.css">
     <title>Title</title>
 
 </head>
-<body style="overflow-y:scroll;padding-top: 100px;">
+<body style="overflow-y:scroll;padding-top: 150px;">
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <h2>在线考试系统</h2>
-        <p>倒计时60分钟</p>
+        <p>考试时间为60分钟</p>
+        <div class="time-item row col-sm-3 col-sm-offset-9">
+            <strong id="hour_show">0时</strong>
+            <strong id="minute_show">00分</strong>
+            <strong id="second_show">00秒</strong>
+        </div>
     </div>
 </nav>
 <div class="row col-sm-10 col-sm-offset-1" style="padding-top: 0px">
@@ -132,9 +138,14 @@
         <button class="btn btn-primary" id="subBtn">提交</button>
     </div>
 </div>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/time.js"></script>
 <script>
+    $(function () {
+        timer(intDiff);
+    });
+
     function getOption(n) {
         m = '';
         switch (n) {
