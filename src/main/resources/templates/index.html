@@ -31,13 +31,13 @@
     <!-- top -->
     <!-- form -->
     <div class="row">
-        <form class="form-horizontal" action="/initUserInfo" method="post">
+        <form class="form-horizontal" action="/initExaPaper" method="post">
             <div class="col-md-11 col-md-offset-1">
                 <div class="row">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">姓名</label>
                         <div class="col-sm-2">
-                            <input class="form-control" id="name">
+                            <input class="form-control" id="name" name="name">
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="school" class="col-sm-2 control-label">学校</label>
                         <div class="col-sm-2">
-                            <input class="form-control" id="school">
+                            <input class="form-control" id="school" name="school">
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     <div class="form-group">
                         <label for="major" class="col-sm-2 control-label">专业</label>
                         <div class="col-sm-2">
-                            <input class="form-control" id="major">
+                            <input class="form-control" id="major" name="major">
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <div class="form-group">
                         <label for="phone" class="col-sm-2 control-label">手机号</label>
                         <div class="col-sm-2">
-                            <input class="form-control" id="phone">
+                            <input class="form-control" id="phone" name="phone">
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-2">
-                            <input class="form-control" id="email">
+                            <input class="form-control" id="email" name="email">
                         </div>
                     </div>
                 </div>
@@ -89,9 +89,9 @@
                         <div class="col-sm-2">
                             <select class="col-sm-2 form-control" id="post" name="post">
                                 <option value="">请选择</option>
-                                <option value="">Java开发人员</option>
-                                <option value="">测试人员</option>
-                                <option value="">C开发人员</option>
+                                <option value="java">Java开发人员</option>
+                                <option value="test">测试人员</option>
+                                <option value="c">C开发人员</option>
                             </select>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
             <div class="col-md-11 col-md-offset-1">
                 <div class="row">
                     <div class="col-sm-2 col-sm-offset-2">
-                        <button type="button" class="btn btn-primary">开始考试</button>
+                        <button type="submit" class="btn btn-primary">开始考试</button>
                     </div>
                 </div>
             </div>

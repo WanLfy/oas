@@ -13,7 +13,7 @@ public class QueBank {
     @GeneratedValue
     private int queId;
     @Column(length = 20, nullable = false)
-    private String libType;
+    private String post;
     @Column(length = 1, nullable = false)
     private int type;
     @Column(length = 200)
@@ -27,12 +27,12 @@ public class QueBank {
         this.queId = queId;
     }
 
-    public String getLibType() {
-        return libType;
+    public String getPost() {
+        return post;
     }
 
-    public void setLibType(String libType) {
-        this.libType = libType;
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public int getType() {
@@ -55,7 +55,7 @@ public class QueBank {
     public String toString() {
         return "QueBank{" +
                 "queId=" + queId +
-                ", libType='" + libType + '\'' +
+                ", post='" + post + '\'' +
                 ", type=" + type +
                 ", title='" + title + '\'' +
                 '}';

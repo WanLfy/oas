@@ -10,12 +10,16 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ExaTemplateRepository extends JpaRepository<ExaTemplate, ExaTemplate.ExaTemplatePK> {
 
-    // 获取最大模板号
-    @Query(nativeQuery = true, value = "SELECT MAX(temp_id) FROM t_exa_template")
-    public Integer getMaxTempId();
+//    // 获取最大模板号
+//    @Query(nativeQuery = true, value = "SELECT MAX(temp_id) FROM t_exa_template")
+//    public Integer getMaxTempId();
+//
+//    // 插入模板
+//    @Modifying
+//    @Query(nativeQuery = true, value = "INSERT INTO t_exa_template(temp_id,que_id) VALUES (?1,?2)")
+//    public void insertTemp(int tempId, int queId);
 
-    // 插入模板
-    @Modifying
-    @Query(nativeQuery = true, value = "INSERT INTO t_exa_template(temp_id,que_id) VALUES (?1,?2)")
-    public void insertTemp(int tempId, int queId);
+    // 随机获取 post 类型的模板号ORDER BY RAND() LIMIT
+    @Query(nativeQuery = true, value = "SELECT t.temp_id FROM t_exa_template t WHERE t.post =?1 ORDER BY RAND() LIMIT 1")
+    public Integer findTempIdByPost(String post);
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>上海黄金交易所-业务服务平台-用户登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<script th:src="${#httpServletRequest.getContextPath()}+'/assets/plugins/jquery-1.10.2.min.js'" type="text/javascript"></script>
+<link th:href="${#httpServletRequest.getContextPath()}+'/assets/css/style.css'" rel="stylesheet" type="text/css"/>
+<link th:href="${#httpServletRequest.getContextPath()}+'/assets/css/pages/login.css'" rel="stylesheet" type="text/css"/>
+<script th:inline="javascript">
+var loginSrc = [[${loginSrc}]]; 
+</script>
+<body>
+	<div id="login" class="login">
+	<form class="login-form" th:action="${#httpServletRequest.getContextPath()}+'/user/loginSubmit.htm'" method="post">
+		<ul class="loginList">
+			<li class="name">
+				<label>用户</label><input type="text" required="required" name="username"/>
+			</li>
+			<li class="psd">
+				<label>密码</label><input type="password" required="required" name="password"/>
+			</li>
+			<li>
+			
+			<div style="color: red;display: none;margin-left: 60px;"  id="loginFailed">
+			<br></br>
+			<span th:text="${loginFailMsg}">
+				登录名、密码或用户状态有误！
+			</span>
+			</div>
+			</li>
+			<li class="fun">
+				<input class="btn01" type="submit" value="登录" />
+				<input class="btn02" type="reset" value="重置" />
+			</li>
+		</ul>
+		</form>
+		<div class="footer">
+			<p>
+				上海黄金交易所业务服务平台
+			</p>
+			<p>
+				Copyright 2014-2020 www.sge.com.cn,SGE All Rights R
+			</p>
+		</div>
+	</div>
+</body>
+<script type="text/javascript"> 
+jQuery(document).ready(function() {  
+	if(loginSrc == 1){
+		$("#loginFailed").show();
+	}
+});
+</script>
+</html>

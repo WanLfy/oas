@@ -1,24 +1,25 @@
-var intDiff = parseInt(60*60);//倒计时总秒数量
-function timer(intDiff) {
-    var t = window.setInterval(function () {
-        var hour = 0,
-            minute = 0,
-            second = 0;//时间默认值
-        if (intDiff > 0) {
-            hour = Math.floor(intDiff / (60 * 60));
-            minute = Math.floor(intDiff / 60) - (hour * 60);
-            second = Math.floor(intDiff) - (hour * 60 * 60) - (minute * 60);
-        }
-        if (minute <= 9) minute = '0' + minute;
-        if (second <= 9) second = '0' + second;
-        $('#hour_show').html('<s id="h"></s>' + hour + '时');
-        $('#minute_show').html('<s></s>' + minute + '分');
-        $('#second_show').html('<s></s>' + second + '秒');
-        intDiff--;
-        if (hour == 0 && minute == 0 && second == 0) {
-            alert("考试时间到,试卷已提交");
-            window.clearInterval(t);
-            $("#userExaForm").submit();
-        }
-    }, 1000);
+var maxtime;
+if(window.name==''){
+    maxtime = 60*60;
+}else{
+    maxtime = window.name;
 }
+
+function CountDown(){
+    if(maxtime>=0){
+        minutes = Math.floor(maxtime/60);
+        seconds = Math.floor(maxtime%60);
+        msg = "距离考试结束还有<b>"+minutes+"</b>分<b>"+seconds+"</b>秒";
+        document.all["timer"].innerHTML = msg;
+        if(maxtime == 5*60) alert('注意，还有5分钟!');
+        --maxtime;
+        window.name = maxtime;
+    }
+    else{
+        clearInterval(timer);
+
+        alert("考试时间到，试卷已提交!");
+    }
+}
+
+timer = setInterval("CountDown()",1000);

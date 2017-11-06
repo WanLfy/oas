@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <script src="js/time.js"></script>
+    <title>考试试卷</title>
+</head>
+<body style="overflow-y:scroll;padding-top: 130px;">
+<nav class="navbar navbar-default navbar-fixed-top" style="min-width: 160px;">
+    <div class="container">
+        <h2>在线考试系统</h2>
+        <p>考试时间为60分钟</p>
+        <div id="timer" style="color:red;float: right">距离考试结束还有<b>00</b>分<b>00</b>秒</div>
+    </div>
+</nav>
+<div class="row col-sm-10 col-sm-offset-1" style="padding-top: 0px">
+    <form action="/commitExaPaper" th:object="${answer}" method="post" class="form-group" id="userExaForm">
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <!-- 选择题 begin -->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="choice">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           aria-expanded="true" aria-controls="collapseOne">
+                            选择题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="choice">
+                    <div class="panel-body">
+                        <div th:each="choice,c:${ep.choiceList}">
+                            <!-- 题号 -->
+                            <input type="hidden" th:value="${choice.queBank.queId}"
+                                   th:name="${'choiceAnswer['+(c.index)+'].queId'}"/>
+                            <input type="hidden" value="0"
+                                   th:name="${'choiceAnswer['+(c.index)+'].type'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((c.index)+1+'、')+(choice.queBank.title)}"></div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" th:each="options,o:${choice.queOptionsList}">
+                                            <input type="radio" th:name="${'choiceAnswer['+(c.index)+'].userAnswer'}"
+                                                   th:text="${options.options}"
+                                                   th:value="${options.options}"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 选择题 end -->
+
+            <!-- 多选题 begin -->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="choices">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                           aria-expanded="true" aria-controls="collapseFour">
+                            多选题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="choices">
+                    <div class="panel-body">
+                        <div th:each="choices,c:${ep.choicesList}">
+                            <!-- 题号 -->
+                            <input type="hidden" th:value="${choices.queBank.queId}"
+                                   th:name="${'choicesAnswer['+(c.index)+'].queId'}"/>
+                            <input type="hidden" value="3"
+                                   th:name="${'choicesAnswer['+(c.index)+'].type'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((c.index)+1+'、')+(choices.queBank.title)}"></div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item" th:each="options,o:${choices.queOptionsList}">
+                                            <input type="checkbox"
+                                                   th:name="${'choicesAnswer['+(c.index)+'].answerList['+(o.index)+']'}"
+                                                   th:text="${options.options}"
+                                                   th:value="${options.options}"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 多选题 end-->
+
+            <!-- 判断题 begin -->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="judge">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            判断题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="judge">
+                    <div class="panel-body">
+                        <div th:each="judge,j:${ep.judgeList}">
+                            <input type="hidden" th:value="${judge.queId}"
+                                   th:name="${'judgeAnswer['+(j.index)+'].queId'}"/>
+                            <input type="hidden" value="1"
+                                   th:name="${'judgeAnswer['+(j.index)+'].type'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((j.index)+1+'、')+(judge.title)}"></div>
+                                <div class="panel-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'judgeAnswer['+(j.index)+'].userAnswer'}"
+                                                   value="1"/>正确
+                                        </li>
+                                        <li class="list-group-item">
+                                            <input type="radio" th:name="${'judgeAnswer['+(j.index)+'].userAnswer'}"
+                                                   value="0"/>错误
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 判断题 end -->
+
+            <!-- 简答题 begin-->
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="short">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            简答题
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="short">
+                    <div class="panel-body">
+                        <div th:each="shortt,s:${ep.shortList}">
+                            <input type="hidden" th:value="${shortt.queId}"
+                                   th:name="${'shortAnswer['+(s.index)+'].queId'}"/>
+                            <input type="hidden" value="2"
+                                   th:name="${'shortAnswer['+(s.index)+'].type'}"/>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" th:text="${((s.index)+1+'、')+(shortt.title)}"></div>
+                                <div class="panel-body">
+                                    <textarea class="form-control" rows="15"
+                                              th:name="${'shortAnswer['+(s.index)+'].userAnswer'}"
+                                              style="resize:none;overflow:visible"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 简答题 end -->
+        </div>
+    </form>
+    <div class="col-sm-2 col-sm-offset-10">
+        <button class="btn btn-danger">放弃</button>
+        <button class="btn btn-primary" id="subBtn">提交</button>
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    // 手动提交试卷
+    $("#subBtn").click(function () {
+        $("#userExaForm").submit();
+    });
+
+</script>
+</body>
+</html>

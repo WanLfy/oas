@@ -19,6 +19,8 @@ public class ExaTemplate {
     @Id
     private int queId;
 
+    private String post;
+
     public int getTempId() {
         return tempId;
     }
@@ -56,11 +58,20 @@ public class ExaTemplate {
         }
     }
 
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
     @Override
     public String toString() {
         return "ExaTemplate{" +
                 "tempId=" + tempId +
                 ", queId=" + queId +
+                ", post='" + post + '\'' +
                 '}';
     }
 }

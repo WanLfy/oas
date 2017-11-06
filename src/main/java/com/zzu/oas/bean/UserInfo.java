@@ -6,27 +6,22 @@ import javax.persistence.*;
  * Created by qinhao on 2017/10/27 11:00.
  */
 @Entity
-@Table(name = "t_user_score")
-public class UserScore {
+@Table(name = "t_user_info")
+public class UserInfo {
     @Id
     @Column(length = 10)
     private String userFlag;
     @Column(length = 10, nullable = false)
     private String name;
-    @Column(length = 30, nullable = false)
     private String school;
-    @Column(length = 30, nullable = false)
     private String major;
-    @Column(length = 11, nullable = false)
     private String phone;
-    @Column(length = 30, nullable = false)
     private String email;
     @Column(length = 10, nullable = false)
     private String post;
-    @Column(length = 2)
     private int choiceSumScore;
-    @Column(length = 2)
     private int judgeSumScore;
+    private int choicesSumScore;
 
     public String getUserFlag() {
         return userFlag;
@@ -100,9 +95,17 @@ public class UserScore {
         this.judgeSumScore = judgeSumScore;
     }
 
+    public int getChoicesSumScore() {
+        return choicesSumScore;
+    }
+
+    public void setChoicesSumScore(int choicesSumScore) {
+        this.choicesSumScore = choicesSumScore;
+    }
+
     @Override
     public String toString() {
-        return "UserScore{" +
+        return "UserInfo{" +
                 "userFlag='" + userFlag + '\'' +
                 ", name='" + name + '\'' +
                 ", school='" + school + '\'' +
@@ -112,6 +115,7 @@ public class UserScore {
                 ", post='" + post + '\'' +
                 ", choiceSumScore=" + choiceSumScore +
                 ", judgeSumScore=" + judgeSumScore +
+                ", choicesSumScore=" + choicesSumScore +
                 '}';
     }
 }

@@ -1,26 +1,35 @@
 package com.zzu.oas.bean;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * 用户提交答卷
  * Created by qinhao on 2017/10/27 10:58.
  */
 @Entity
-@IdClass(UserExa.UserExaPK.class)
 @Table(name = "t_user_exa")
 
 public class UserExa {
     @Id
-    @Column(length = 10)
+    @GeneratedValue
+    private int id;
+    @Column(length = 10, nullable = false)
     private String userFlag;
-    @Id
+    @Column(nullable = false)
     private int tempId;
-    @Id
+    @Column(nullable = false)
     private int queId;
-    @Column(length = 100)
+    @Column(nullable = false)
+    private int type;
     private String userAnswer;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserFlag() {
         return userFlag;
@@ -54,44 +63,12 @@ public class UserExa {
         this.userAnswer = userAnswer;
     }
 
-    public static class UserExaPK implements Serializable {
-
-        private String userFlag;
-        private int tempId;
-        private int queId;
-
-        public String getUserFlag() {
-            return userFlag;
-        }
-
-        public void setUserFlag(String userFlag) {
-            this.userFlag = userFlag;
-        }
-
-        public int getTempId() {
-            return tempId;
-        }
-
-        public void setTempId(int tempId) {
-            this.tempId = tempId;
-        }
-
-        public int getQueId() {
-            return queId;
-        }
-
-        public void setQueId(int queId) {
-            this.queId = queId;
-        }
+    public int getType() {
+        return type;
     }
 
-    @Override
-    public String toString() {
-        return "UserExa{" +
-                "userFlag='" + userFlag + '\'' +
-                ", tempId=" + tempId +
-                ", queId=" + queId +
-                ", userAnswer='" + userAnswer + '\'' +
-                '}';
+    public void setType(int type) {
+        this.type = type;
     }
+
 }

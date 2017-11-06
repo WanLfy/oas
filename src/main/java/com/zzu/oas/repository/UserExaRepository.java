@@ -10,9 +10,9 @@ import javax.transaction.Transactional;
 /**
  * Created by qinhao on 2017/10/28.
  */
-public interface UserExaRepository extends JpaRepository<UserExa, UserExa.UserExaPK> {
+public interface UserExaRepository extends JpaRepository<UserExa, Integer> {
 
     @Modifying
-    @Query(nativeQuery = true, value = "INSERT INTO t_user_exa(user_flag, temp_id, que_id, user_answer) VALUES (?1,?2,?3,?4)")
-    public void saveUserExa(String userFlag, int tempId, int queId, String userAnswer);
+    @Query(nativeQuery = true, value = "INSERT INTO t_user_exa(user_flag, temp_id, que_id, user_answer,type) VALUES (?1,?2,?3,?4,?5)")
+    public void saveUserExa(String userFlag, int tempId, int queId, String userAnswer, int type);
 }

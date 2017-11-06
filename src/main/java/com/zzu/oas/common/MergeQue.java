@@ -1,4 +1,4 @@
-package com.zzu.oas.util;
+package com.zzu.oas.common;
 
 import com.zzu.oas.bean.QueBank;
 import com.zzu.oas.bean.QueOptions;
@@ -10,21 +10,21 @@ import java.util.List;
  * 选择题题目和待选项合并
  * Created by qinhao on 2017/10/30.
  */
-public class MergeQueOptions {
+public class MergeQue {
 
     // 题目
     private QueBank queBank;
     // 待选项
     private List<QueOptions> queOptionsList;
 
-    public MergeQueOptions() {
+    public MergeQue() {
     }
 
     // 合并选择体题目和待选项
-    public static List<MergeQueOptions> getMergeQueOptionsList(List<QueBank> queBanks, List<QueOptions> optionsList) {
-        List<MergeQueOptions> mergeQueOptionsList = new ArrayList<MergeQueOptions>();
-        for (QueBank queBank : queBanks) {
-            MergeQueOptions mergeQueOptions = new MergeQueOptions();
+    public static List<MergeQue> getMergeQueList(List<QueBank> queBankList, List<QueOptions> optionsList) {
+        List<MergeQue> mergeQueList = new ArrayList<MergeQue>();
+        for (QueBank queBank : queBankList) {
+            MergeQue mergeQue = new MergeQue();
             List<QueOptions> matchOptionsList = new ArrayList<QueOptions>();
             for (QueOptions options : optionsList) {
                 if (queBank.getQueId() == options.getQueId()) {
@@ -35,11 +35,11 @@ public class MergeQueOptions {
                 }
             }
             // 合并添加
-            mergeQueOptions.setQueBank(queBank);
-            mergeQueOptions.setQueOptionsList(matchOptionsList);
-            mergeQueOptionsList.add(mergeQueOptions);
+            mergeQue.setQueBank(queBank);
+            mergeQue.setQueOptionsList(matchOptionsList);
+            mergeQueList.add(mergeQue);
         }
-        return mergeQueOptionsList;
+        return mergeQueList;
     }
 
     public QueBank getQueBank() {
@@ -60,7 +60,7 @@ public class MergeQueOptions {
 
     @Override
     public String toString() {
-        return "MergeQueOptions{" +
+        return "MergeQue{" +
                 "queBank=" + queBank +
                 ", queOptionsList=" + queOptionsList +
                 '}';
