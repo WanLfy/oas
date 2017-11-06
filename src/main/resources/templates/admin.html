@@ -2,17 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <style rel="stylesheet">
+        body {
+            overflow-y: scroll;
+        }
+    </style>
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/makeTemp}" method="post">
-    生成试卷模板：
-    <select name="libType">
-        <option value="">请选择题目类型</option>
-        <option value="Java">Java开发</option>
-        <option value="test">软件测试</option>
-    </select><br/>
-    <input type="submit" value="完成"/>
-</form>
+<div class="container-fluid">
+    <div class="row">
+        <div class="jumbotron col-md-12">
+            <h2>在线考试系统</h2>
+            <p>管理员审核</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation" class="active">
+                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
+                </li>
+                <li role="presentation">
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+                </li>
+                <li role="presentation">
+                    <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                <li role="presentation">
+                    <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            </ul>
+        </div>
+        <div class="tab-content col-md-10">
+            <div role="tabpanel" class="tab-pane active" id="home">
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">222</div>
+            <div role="tabpanel" class="tab-pane" id="messages">333</div>
+            <div role="tabpanel" class="tab-pane" id="settings">444</div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    $("#user").click(function () {
+        $.ajax({
+            url: "/getUser",
+            type: "GET",
+            success: function (data) {
+
+            }
+        });
+    });
+</script>
 </body>
 </html>

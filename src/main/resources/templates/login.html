@@ -2,13 +2,78 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
-    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <title>管理员登录</title>
+    <style rel="stylesheet">
+        body {
+            overflow-y: scroll;
+        }
+
+        input[class='form-control'] {
+            min-width: 200px;
+            max-width: 200px;
+        }
+
+        select {
+            min-width: 200px;
+            max-width: 200px;
+        }
+    </style>
 </head>
 <body>
-<form th:action="@{/adminLogin}" method="post">
-    用户名:<input name="username"/><br/>
-    密码:<input name="password"/><br/>
-    <input type="submit" value="登录"/>
-</form>
+<div class="container-fluid">
+    <!-- top -->
+    <div class="row">
+        <div class="jumbotron col-md-12">
+            <h2>在线考试系统</h2>
+            <p>管理员登录</p>
+        </div>
+    </div>
+    <div class="row">
+        <form class="form-horizontal" action="/adminIndex" method="post">
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="username" class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-2">
+                            <input class="form-control" id="username" name="username">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="password" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-2">
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-md-offset-1">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2 col-sm-offset-2">
+                            <button type="submit" class="btn btn-default">登录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="msg" th:value="${msg}"/>
+        </form>
+
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var msg = $("#msg").val();
+        if (msg != "") {
+            alert(msg);
+        }
+    })
+</script>
 </body>
 </html>

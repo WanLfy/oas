@@ -1,7 +1,12 @@
 package com.zzu.oas.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 主页
@@ -17,7 +22,18 @@ public class HomeController {
 
     @RequestMapping(value = "/admin")
     public String admin() {
-        return "admin";
+        return "login";
     }
 
+    @RequestMapping(value = "/adminIndex", method = RequestMethod.POST)
+    public String adminIndex(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+        if (username != null && password != null) {
+            if ("admin".equals(username) && "1234".equals(password)) {
+                return "admin";
+            } else {
+                model.addAttribute("msg", "登录失败");
+            }
+        }
+        return "login";
+    }
 }
