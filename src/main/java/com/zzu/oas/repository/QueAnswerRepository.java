@@ -17,4 +17,8 @@ public interface QueAnswerRepository extends JpaRepository<QueAnswer, QueAnswer.
     // 获取多选题答案
     @Query(nativeQuery = true, value = "SELECT answer FROM t_que_answer WHERE que_id=?1")
     public List<String> findAnswersByQueId(Integer queId);
+
+    // 根据模板获取答案
+    @Query(nativeQuery = true, value = "SELECT * FROM t_que_answer o WHERE o.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?1);")
+    public List<QueAnswer> getSureAnswer(Integer tempId);
 }

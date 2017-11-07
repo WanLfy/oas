@@ -70,17 +70,17 @@ public class CommitExaServiceImpl implements CommitExaService {
         List<ChoicesAnswer> choicesAnswer = da.getChoicesAnswer();
         if (choiceAnswer != null && choiceAnswer.size() != 0) {
             for (UserExa c : choiceAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), c.getUserAnswer() == null ? c.getUserAnswer() : "", OAS.CHOICE_TYPE);
+                userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), c.getUserAnswer(), OAS.CHOICE_TYPE);
             }
         }
         if (judgeAnswer != null && judgeAnswer.size() != 0) {
             for (UserExa j : judgeAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), j.getTempId(), j.getQueId(), j.getUserAnswer() == null ? j.getUserAnswer() : "", OAS.JUDGE_TYPE);
+                userExaRepository.saveUserExa(user.getUserFlag(), j.getTempId(), j.getQueId(), j.getUserAnswer(), OAS.JUDGE_TYPE);
             }
         }
         if (shortAnswer != null && shortAnswer.size() != 0) {
             for (UserExa s : shortAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), s.getTempId(), s.getQueId(), s.getUserAnswer() == null ? s.getUserAnswer() : "", OAS.SHORT_TYPE);
+                userExaRepository.saveUserExa(user.getUserFlag(), s.getTempId(), s.getQueId(), s.getUserAnswer(), OAS.SHORT_TYPE);
             }
         }
         if (choiceAnswer != null && choiceAnswer.size() != 0) {
@@ -88,7 +88,9 @@ public class CommitExaServiceImpl implements CommitExaService {
                 List<String> answerList = c.getAnswerList();
                 if (answerList != null) {
                     for (String userAnswer : answerList) {
-                        userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), userAnswer, OAS.CHOICES_TYPE);
+                        if (userAnswer != null) {
+                            userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), userAnswer, OAS.CHOICES_TYPE);
+                        }
                     }
                 } else {
                     userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), null, OAS.CHOICES_TYPE);

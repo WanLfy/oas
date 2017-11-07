@@ -8,7 +8,7 @@
             overflow-y: scroll;
         }
     </style>
-    <title>Title</title>
+    <title>管理员</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -19,13 +19,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-1">
+        <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" class="active">
-                    <a href="#home" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
+                    <a href="#one" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
                 </li>
                 <li role="presentation">
-                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
+                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">题库录入</a>
                 </li>
                 <li role="presentation">
                     <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
@@ -34,27 +34,17 @@
             </ul>
         </div>
         <div class="tab-content col-md-10">
-            <div role="tabpanel" class="tab-pane active" id="home">
-
+            <div role="tabpanel" class="tab-pane active" id="one">
+                <table class="table table-bordered" id="userTab"></table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="profile">222</div>
-            <div role="tabpanel" class="tab-pane" id="messages">333</div>
-            <div role="tabpanel" class="tab-pane" id="settings">444</div>
+            <div role="tabpanel" class="tab-pane" id="profile">标签页-2</div>
+            <div role="tabpanel" class="tab-pane" id="messages">标签页-3</div>
+            <div role="tabpanel" class="tab-pane" id="settings">标签页-4</div>
         </div>
     </div>
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-    $("#user").click(function () {
-        $.ajax({
-            url: "/getUser",
-            type: "GET",
-            success: function (data) {
-
-            }
-        });
-    });
-</script>
+<script src="js/ajax.js"></script>
 </body>
 </html>

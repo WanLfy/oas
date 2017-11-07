@@ -7,6 +7,9 @@ import com.zzu.oas.common.ExaPaper;
  */
 public interface InitExaPaperService {
 
+    // 根据模板生成tempId
+    public Integer getTempId(String post) throws Exception;
+
     // 生成试卷
-    public ExaPaper getExaPaper(String post) throws Exception;
+    public ExaPaper getExaPaper(Integer tempId) throws Exception;
 }

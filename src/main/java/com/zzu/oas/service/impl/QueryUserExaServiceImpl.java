@@ -2,44 +2,42 @@ package com.zzu.oas.service.impl;
 
 import com.zzu.oas.bean.QueBank;
 import com.zzu.oas.bean.QueOptions;
-import com.zzu.oas.common.ExaPaper;
 import com.zzu.oas.common.MergeQue;
 import com.zzu.oas.common.OAS;
-import com.zzu.oas.repository.ExaTemplateRepository;
-import com.zzu.oas.repository.QueBankRepository;
-import com.zzu.oas.repository.QueOptionsRepository;
-import com.zzu.oas.service.InitExaPaperService;
+import com.zzu.oas.common.ShowExa;
+import com.zzu.oas.common.SureAndUser;
+import com.zzu.oas.repository.*;
+import com.zzu.oas.service.QueryUserExaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by qinhao on 2017/11/6.
+ * Created by qinhao on 2017/11/7.
  */
 @Service
-public class InitExaPaperServiceImpl implements InitExaPaperService {
-
-    @Autowired
-    private ExaTemplateRepository templateRepository;
+public class QueryUserExaServiceImpl implements QueryUserExaService {
+    
     @Autowired
     private QueBankRepository queBankRepository;
     @Autowired
     private QueOptionsRepository queOptionsRepository;
+    @Autowired
+    private QueAnswerRepository queAnswerRepository;
+    @Autowired
+    private UserExaRepository userExaRepository;
+    @Autowired
+    private ExaTemplateRepository exaTemplateRepository;
 
     @Override
-    public Integer getTempId(String post) throws Exception {
-        Integer tempId = null;
-        tempId = templateRepository.findTempIdByPost(post);
-        return tempId;
-    }
-
-    @Override
-    public ExaPaper getExaPaper(Integer tempId) throws Exception {
-        ExaPaper exaPaper = new ExaPaper();
-        if (tempId == null) {
-            throw new Exception("没有对应" + tempId + "的模板");
+    public ShowExa getShowExa(String userFlag) throws Exception {
+        ShowExa showExa = new ShowExa();
+        if (userFlag == null) {
+            throw new Exception("用户名不能为空");
         }
+        Integer tempId = userExaRepository.getTempIdByUserFlag(userFlag);
         // 选择题
         List<QueBank> choiceQues = queBankRepository.getQues(OAS.CHOICE_TYPE, tempId);
         List<QueOptions> choiceOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
@@ -52,13 +50,17 @@ public class InitExaPaperServiceImpl implements InitExaPaperService {
         List<QueBank> choicesQues = queBankRepository.getQues(OAS.CHOICES_TYPE, tempId);
         List<QueOptions> choicesOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
         List<MergeQue> choicesList = MergeQue.getMergeQueList(choicesQues, choicesOptions);
+        // 答案
+        Map<Integer, SureAndUser> answers = SureAndUser.getSureAndUserMap(
+                exaTemplateRepository.getQueIdByTempId(tempId),
+                queAnswerRepository.getSureAnswer(tempId),
+                userExaRepository.findUserExasByUserFlag(userFlag));
         // 生成试卷
-        exaPaper.setChoiceList(choiceList);
-        exaPaper.setChoicesList(choicesList);
-        exaPaper.setJudgeList(judgeQues);
-        exaPaper.setShortList(shortQues);
-
-        return exaPaper;
-
+        showExa.setChoiceList(choiceList);
+        showExa.setChoicesList(choicesList);
+        showExa.setJudgeList(judgeQues);
+        showExa.setShortList(shortQues);
+        showExa.setAnswers(answers);
+        return showExa;
     }
 }

@@ -27,7 +27,7 @@
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
                                aria-expanded="true" aria-controls="collapseOne">
-                                选择题
+                                单选题
                             </a>
                         </h4>
                     </div>
@@ -37,6 +37,8 @@
                                 <!-- 题号 -->
                                 <input type="hidden" th:value="${choice.queBank.queId}"
                                        th:name="${'choiceAnswer['+(c.index)+'].queId'}"/>
+                                <input type="hidden" th:value="${tempId}"
+                                       th:name="${'choiceAnswer['+(c.index)+'].tempId'}"/>
                                 <input type="hidden" value="0"
                                        th:name="${'choiceAnswer['+(c.index)+'].type'}"/>
                                 <div class="panel panel-default">
@@ -75,6 +77,8 @@
                                 <!-- 题号 -->
                                 <input type="hidden" th:value="${choices.queBank.queId}"
                                        th:name="${'choicesAnswer['+(c.index)+'].queId'}"/>
+                                <input type="hidden" th:value="${tempId}"
+                                       th:name="${'choicesAnswer['+(c.index)+'].tempId'}"/>
                                 <input type="hidden" value="3"
                                        th:name="${'choicesAnswer['+(c.index)+'].type'}"/>
                                 <div class="panel panel-default">
@@ -112,6 +116,8 @@
                             <div th:each="judge,j:${ep.judgeList}">
                                 <input type="hidden" th:value="${judge.queId}"
                                        th:name="${'judgeAnswer['+(j.index)+'].queId'}"/>
+                                <input type="hidden" th:value="${tempId}"
+                                       th:name="${'judgeAnswer['+(j.index)+'].tempId'}"/>
                                 <input type="hidden" value="1"
                                        th:name="${'judgeAnswer['+(j.index)+'].type'}"/>
                                 <div class="panel panel-default">
@@ -150,6 +156,8 @@
                             <div th:each="shortt,s:${ep.shortList}">
                                 <input type="hidden" th:value="${shortt.queId}"
                                        th:name="${'shortAnswer['+(s.index)+'].queId'}"/>
+                                <input type="hidden" th:value="${tempId}"
+                                       th:name="${'shortAnswer['+(s.index)+'].tempId'}"/>
                                 <input type="hidden" value="2"
                                        th:name="${'shortAnswer['+(s.index)+'].type'}"/>
                                 <div class="panel panel-default">

@@ -34,7 +34,9 @@ public class InitExaPaperController {
         session.setAttribute("user", user);
         // 生成试卷
         try {
-            ExaPaper exaPaper = initExaPaperService.getExaPaper(post);
+            Integer tempId = initExaPaperService.getTempId(post);
+            ExaPaper exaPaper = initExaPaperService.getExaPaper(tempId);
+            model.addAttribute("tempId", tempId);
             model.addAttribute("ep", exaPaper);
         } catch (Exception e) {
             e.printStackTrace();
