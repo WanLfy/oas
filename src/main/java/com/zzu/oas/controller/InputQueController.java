@@ -5,6 +5,7 @@ import com.zzu.oas.service.InputQueService;
 import com.zzu.oas.service.impl.InputQueServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +37,7 @@ public class InputQueController {
     // 提交入库
     @ResponseBody
     @RequestMapping(value = "/commitInputQues", method = RequestMethod.POST)
-    public boolean commitInputQueList() {
+    public boolean commitInputQueList(Model model) {
         boolean result = false;
         try {
             inputQueService.commitInputQueList(inputQueList);
@@ -44,6 +45,7 @@ public class InputQueController {
             inputQueList.clear();
         } catch (Exception e) {
             e.printStackTrace();
+            model.addAttribute("commiterror", e.getMessage());
         }
         return result;
     }

@@ -133,7 +133,11 @@ $("#saveQue").click(function () {
  * 保存试题
  */
 $("#commitInputQues").click(function () {
-    alert("");
+
+    if ($("#queTab tr").size() < 3) {
+        alert("新录入试卷不能为空");
+        return false;
+    }
     $.ajax({
         url: "/commitInputQues",
         type: "POST",
