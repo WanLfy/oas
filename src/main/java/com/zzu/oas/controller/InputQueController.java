@@ -1,6 +1,9 @@
 package com.zzu.oas.controller;
 
 import com.zzu.oas.common.InputQue;
+import com.zzu.oas.service.InputQueService;
+import com.zzu.oas.service.impl.InputQueServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,19 +19,33 @@ import java.util.List;
 @Controller
 public class InputQueController {
 
+    @Autowired
+    private InputQueService inputQueService;
     // 暂时保存题目
     protected static List<InputQue> inputQueList = new ArrayList<>();
 
+    // 保存题目到list中
     @RequestMapping(value = "/inputQue", method = RequestMethod.POST)
     public String inputQue(@ModelAttribute("iq") InputQue inputQue) {
-        inputQueList.add(inputQue);
-        System.out.println(inputQueList);
-        return "";
+        if (inputQue != null) {
+            inputQueList.add(inputQue);
+        }
+        return "admin";
     }
 
-    @RequestMapping(value = "/jump", method = RequestMethod.GET)
-    public String jump() {
-        return "/input";
+    // 提交入库
+    @ResponseBody
+    @RequestMapping(value = "/commitInputQues", method = RequestMethod.POST)
+    public boolean commitInputQueList() {
+        boolean result = false;
+        try {
+            inputQueService.commitInputQueList(inputQueList);
+            result = true;
+            inputQueList.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @ResponseBody

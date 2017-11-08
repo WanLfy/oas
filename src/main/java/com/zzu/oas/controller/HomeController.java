@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 主页
@@ -27,12 +28,10 @@ public class HomeController {
 
     @RequestMapping(value = "/adminIndex", method = RequestMethod.POST)
     public String adminIndex(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
-        if (username != null && password != null) {
-            if ("admin".equals(username) && "1234".equals(password)) {
-                return "admin";
-            } else {
-                model.addAttribute("msg", "登录失败");
-            }
+        if (username != null && password != null && "admin".equals(username) && "1234".equals(password)) {
+            return "admin";
+        } else {
+            model.addAttribute("msg", "登录失败");
         }
         return "login";
     }

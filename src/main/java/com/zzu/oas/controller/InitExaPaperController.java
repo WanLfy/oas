@@ -40,6 +40,8 @@ public class InitExaPaperController {
             model.addAttribute("ep", exaPaper);
         } catch (Exception e) {
             e.printStackTrace();
+            model.addAttribute("initerror", e.getMessage());
+            return "index";
         }
         return "exapaper";
     }

@@ -21,23 +21,27 @@ public class MergeQue {
     }
 
     // 合并选择体题目和待选项
-    public static List<MergeQue> getMergeQueList(List<QueBank> queBankList, List<QueOptions> optionsList) {
+    public static List<MergeQue> getMergeQueList(List<QueBank> queBankList, List<QueOptions> optionsList) throws Exception {
         List<MergeQue> mergeQueList = new ArrayList<MergeQue>();
-        for (QueBank queBank : queBankList) {
-            MergeQue mergeQue = new MergeQue();
-            List<QueOptions> matchOptionsList = new ArrayList<QueOptions>();
-            for (QueOptions options : optionsList) {
-                if (queBank.getQueId() == options.getQueId()) {
-                    QueOptions qo = new QueOptions();
-                    qo.setQueId(options.getQueId());
-                    qo.setOptions(options.getOptions().trim());
-                    matchOptionsList.add(qo);
+        if (queBankList != null && optionsList != null) {
+            for (QueBank queBank : queBankList) {
+                MergeQue mergeQue = new MergeQue();
+                List<QueOptions> matchOptionsList = new ArrayList<QueOptions>();
+                for (QueOptions options : optionsList) {
+                    if (queBank.getQueId() == options.getQueId()) {
+                        QueOptions qo = new QueOptions();
+                        qo.setQueId(options.getQueId());
+                        qo.setOptions(options.getOptions().trim());
+                        matchOptionsList.add(qo);
+                    }
                 }
+                // 合并添加
+                mergeQue.setQueBank(queBank);
+                mergeQue.setQueOptionsList(matchOptionsList);
+                mergeQueList.add(mergeQue);
             }
-            // 合并添加
-            mergeQue.setQueBank(queBank);
-            mergeQue.setQueOptionsList(matchOptionsList);
-            mergeQueList.add(mergeQue);
+        } else {
+            throw new Exception("选择题(题目、选项)合并失败");
         }
         return mergeQueList;
     }

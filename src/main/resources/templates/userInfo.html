@@ -110,12 +110,13 @@
             <div class="panel-heading">
                 <h3 class="panel-title">简答题</h3>
             </div>
+            <!-- th:utext 可以显示富文本内容 -->
             <div class="panel-body">
                 <div th:each="shortt:${se.shortList}">
                     <textarea class="form-control" rows="15" style="resize:none;overflow:visible"
-                              th:text="(${se.answers[(shortt.queId)].userAnswer[0]})" disabled></textarea><br/>
+                              th:utext="(${se.answers[(shortt.queId)].userAnswer[0]})" disabled></textarea><br/>
                     <textarea class="form-control" rows="5" style="resize:none;overflow:visible"
-                              th:text="(${se.answers[(shortt.queId)].sureAnswer[0]})" disabled></textarea>
+                              th:utext="(${se.answers[(shortt.queId)].sureAnswer[0]})" disabled></textarea>
                 </div>
             </div>
         </div>

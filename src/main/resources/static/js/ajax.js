@@ -1,5 +1,5 @@
 $(function () {
-    $("#user").click();
+    $("#que").click();
 })
 
 /**
@@ -12,28 +12,34 @@ $("#user").click(function () {
         success: function (data) {
             var tab = $("#userTab");
             tab.empty();
-            var head = $("<tr></tr>");
-            $("<th></th>").append("姓名").appendTo(head);
-            $("<th></th>").append("学校").appendTo(head);
-            $("<th></th>").append("专业").appendTo(head);
-            $("<th></th>").append("电话").appendTo(head);
-            $("<th></th>").append("邮箱").appendTo(head);
-            $("<th></th>").append("面试岗位").appendTo(head);
-            $("<th></th>").append("笔试分数").appendTo(head);
-            $("<th></th>").append("试卷").appendTo(head);
-            tab.append(head);
-            $.each(data, function (index, user) {
-                var line = $("<tr></tr>");
-                $("<td></td>").append(user.name).appendTo(line);
-                $("<td></td>").append(user.school).appendTo(line);
-                $("<td></td>").append(user.major).appendTo(line);
-                $("<td></td>").append(user.phone).appendTo(line);
-                $("<td></td>").append(user.email).appendTo(line);
-                $("<td></td>").append(user.post).appendTo(line);
-                $("<td></td>").append((user.choiceSumScore + user.judgeSumScore + user.choicesSumScore)).appendTo(line);
-                $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
-                tab.append(line);
-            });
+            if (data != "") {
+                var head = $("<tr></tr>");
+                $("<th></th>").append("姓名").appendTo(head);
+                $("<th></th>").append("学校").appendTo(head);
+                $("<th></th>").append("专业").appendTo(head);
+                $("<th></th>").append("电话").appendTo(head);
+                $("<th></th>").append("邮箱").appendTo(head);
+                $("<th></th>").append("面试岗位").appendTo(head);
+                $("<th></th>").append("笔试分数").appendTo(head);
+                $("<th></th>").append("试卷").appendTo(head);
+                tab.append(head);
+                $.each(data, function (index, user) {
+                    var line = $("<tr></tr>");
+                    $("<td></td>").append(user.name).appendTo(line);
+                    $("<td></td>").append(user.school).appendTo(line);
+                    $("<td></td>").append(user.major).appendTo(line);
+                    $("<td></td>").append(user.phone).appendTo(line);
+                    $("<td></td>").append(user.email).appendTo(line);
+                    $("<td></td>").append(user.post).appendTo(line);
+                    $("<td></td>").append((user.choiceSumScore + user.judgeSumScore + user.choicesSumScore)).appendTo(line);
+                    $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
+                    tab.append(line);
+                });
+            } else {
+                var tr = $("<tr></tr>").css("text-align", "center");
+                $("<td></td>").append("暂时还没有面试人员的信息").attr("colspan", "8").appendTo(tr);
+                tab.append(tr);
+            }
         }
     });
 });
@@ -43,6 +49,7 @@ $("#user").click(function () {
 $("#que").click(function () {
     showInputQues();
 });
+
 /**
  * 模态框初始化
  */
@@ -114,11 +121,29 @@ $("#type").change(function () {
 });
 
 /**
- * 保存试题
+ * 缓存试题
  */
 $("#saveQue").click(function () {
     $("#inputForm").submit();
+    $("#inputForm :input").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").remove("selected");//核心
     showInputQues();
+});
+
+/**
+ * 保存试题
+ */
+$("#commitInputQues").click(function () {
+    alert("");
+    $.ajax({
+        url: "/commitInputQues",
+        type: "POST",
+        success: function (data) {
+            if (data) {
+                alert("试卷保存成功");
+                showInputQues();
+            }
+        }
+    });
 });
 
 /**

@@ -31,15 +31,16 @@ public class InitExaPaperServiceImpl implements InitExaPaperService {
     public Integer getTempId(String post) throws Exception {
         Integer tempId = null;
         tempId = templateRepository.findTempIdByPost(post);
+        if (tempId == null) {
+            throw new Exception("没有对应" + post + "的试卷模板");
+        }
         return tempId;
     }
 
     @Override
     public ExaPaper getExaPaper(Integer tempId) throws Exception {
         ExaPaper exaPaper = new ExaPaper();
-        if (tempId == null) {
-            throw new Exception("没有对应" + tempId + "的模板");
-        }
+
         // 选择题
         List<QueBank> choiceQues = queBankRepository.getQues(OAS.CHOICE_TYPE, tempId);
         List<QueOptions> choiceOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
@@ -53,6 +54,11 @@ public class InitExaPaperServiceImpl implements InitExaPaperService {
         List<QueOptions> choicesOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
         List<MergeQue> choicesList = MergeQue.getMergeQueList(choicesQues, choicesOptions);
         // 生成试卷
+
+        if (choiceList.size() == 0 && choicesList.size() == 0 && judgeQues.size() == 0 && shortQues.size() == 0) {
+            // 可以删除对应模板号(待优化...)
+            throw new Exception("该模板对应试题已经不存在");
+        }
         exaPaper.setChoiceList(choiceList);
         exaPaper.setChoicesList(choicesList);
         exaPaper.setJudgeList(judgeQues);

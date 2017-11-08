@@ -30,6 +30,7 @@
         </div>
     </div>
     <!-- top -->
+    <input type="hidden" id="initerror" th:value="${initerror}">
     <!-- form -->
     <div class="row">
         <form class="form-horizontal" action="/initExaPaper" method="post" id="infoForm">
@@ -108,21 +109,22 @@
         </form>
     </div>
     <!-- form -->
+
+
 </div>
 
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script type="text/javascript">
-//    $("form").submit(function () {
-//        var info = $(".form-control");
-//        info.each(function () {
-//            if ($(this).val().trim() == "") {
-//                alert($(this).parent().prev().text() + "为必填项");
-//                return false;
-//            }
-//        });
-//    })
+    $(function () {
+        var initerror = $("#initerror").val();
+        if (initerror != "") {
+            alert(initerror);
+            $("#initerror").val("");
+        }
+    })
+
 </script>
 </body>
 </html>

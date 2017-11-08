@@ -69,10 +69,10 @@
         <div class="col-md-2" id="myTabs">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" class="active">
-                    <a href="#one" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
+                    <a href="#two" aria-controls="two" role="tab" data-toggle="tab" id="que">题库录入</a>
                 </li>
                 <li role="presentation">
-                    <a href="#two" aria-controls="two" role="tab" data-toggle="tab" id="que">题库录入</a>
+                    <a href="#one" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
                 </li>
                 <li role="presentation">
                     <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">标签页-3</a></li>
@@ -81,10 +81,10 @@
             </ul>
         </div>
         <div class="tab-content col-md-10">
-            <div role="tabpanel" class="tab-pane active" id="one">
+            <div role="tabpanel" class="tab-pane" id="one">
                 <table class="table table-bordered" id="userTab"></table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="two">
+            <div role="tabpanel" class="tab-pane  active" id="two">
                 <div class="row">
                     <table class="table table-bordered" id="queTab">
                         <tr>
@@ -97,9 +97,10 @@
                     </table>
                 </div>
                 <div class="row">
-                    <div class="btn-group col-md-2 col-md-offset-10">
+                    <div class="col-md-2 col-md-offset-10">
                         <a href="#" data-toggle="modal" data-target="#choiceModal" role="button"
                            class="btn btn-primary">录入</a>
+                        <a href="#" role="button" class="btn btn-primary" id="commitInputQues">保存</a>
                     </div>
                 </div>
             </div>
@@ -107,7 +108,6 @@
             <div role="tabpanel" class="tab-pane" id="settings">标签页-4</div>
         </div>
     </div>
-    <input type="hidden" th:value="${flag}" id="flag">
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
