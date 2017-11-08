@@ -1,7 +1,10 @@
 $(function () {
     $("#user").click();
 })
-// 面试人员列表
+
+/**
+ * 1.查询面试人员
+ */
 $("#user").click(function () {
     $.ajax({
         url: "/getUser",
@@ -34,3 +37,115 @@ $("#user").click(function () {
         }
     });
 });
+/**
+ * 2.查询题库录入
+ */
+$("#que").click(function () {
+    showInputQues();
+});
+/**
+ * 模态框初始化
+ */
+$("#choiceModal").on("hidden.bs.modal", function () {
+    $("input").val("");
+    $("select").val("");
+    $("#title").parent().parent().nextAll().remove();
+});
+
+/**
+ * 插入题型
+ */
+$("#type").change(function () {
+    $("#title").parent().parent().nextAll().remove();
+    var divO = $("<div></div>").addClass("form-group");
+    var divI = $("<div></div>").addClass("col-md-6");
+    var labelO = $("<label></label>").addClass("col-md-2 control-label").append("选项");
+    var divOa = $("<div></div>").addClass("form-group");
+    var divIa = $("<div></div>").addClass("col-md-6");
+    var labelA = $("<label></label>").addClass("col-md-2 control-label").append("答案");
+    var type = $("#type").val();
+
+    if (type != "") {
+        if (type == 0) {
+            var A = $("<input>").addClass("form-control").attr("name", "optionsList[0]").attr("placeholder", "选项...");
+            var B = $("<input>").addClass("form-control").attr("name", "optionsList[1]").attr("placeholder", "选项...");
+            var C = $("<input>").addClass("form-control").attr("name", "optionsList[2]").attr("placeholder", "选项...");
+            var D = $("<input>").addClass("form-control").attr("name", "optionsList[3]").attr("placeholder", "选项...");
+            divI.append(A).append(B).append(C).append(D);
+            divO.append(labelO).append(divI).appendTo($("#inputForm"));
+            var answer = $("<input>").addClass("form-control").attr("name", "answerList[0]");
+            divIa.append(answer);
+            divOa.append(labelA).append(divIa).appendTo($("#inputForm"));
+        }
+        if (type == 1) {
+            var answer = $("<input>").addClass("form-control").attr("name", "answerList[0]");
+            divIa.append(answer);
+            divOa.append(labelA).append(divIa).appendTo($("#inputForm"));
+        }
+        if (type == 2) {
+            var answer = $("<textarea></textarea>").addClass("form-control").css("resize", "none").css("overflow", "visible")
+                .attr("name", "answerList[0]").attr("row", "5");
+            divIa.append(answer);
+            divOa.append(labelA).append(divIa).appendTo($("#inputForm"));
+        }
+        if (type == 3) {
+            var n = 1, m = 4;
+            var A = $("<input>").addClass("form-control").attr("name", "optionsList[0]").attr("placeholder", "选项...");
+            var B = $("<input>").addClass("form-control").attr("name", "optionsList[1]").attr("placeholder", "选项...");
+            var C = $("<input>").addClass("form-control").attr("name", "optionsList[2]").attr("placeholder", "选项...");
+            var D = $("<input>").addClass("form-control").attr("name", "optionsList[3]").attr("placeholder", "选项...");
+            var spanO = $("<span></span>").addClass("glyphicon glyphicon-plus").css("float", "right").attr("id", "addSpanO");
+            var spanA = $("<span></span>").addClass("glyphicon glyphicon-plus").css("float", "right").attr("id", "addSpanA");
+            spanO.on("click", function () {
+                spanO.before($("<input>").addClass("form-control").attr("name", "optionsList[" + m + "]").attr("placeholder", "选项..."));
+                m++;
+            });
+            spanA.on("click", function () {
+                spanA.before($("<input>").addClass("form-control").attr("name", "answerList[" + n + "]"));
+                n++;
+            });
+            divI.append(A).append(B).append(C).append(D).append(spanO);
+            divO.append(labelO).append(divI).appendTo($("#inputForm"));
+            var answer = $("<input>").addClass("form-control").attr("name", "answerList[0]");
+            divIa.append(answer).append(spanA);
+            divOa.append(labelA).append(divIa).appendTo($("#inputForm"));
+        }
+    }
+});
+
+/**
+ * 保存试题
+ */
+$("#saveQue").click(function () {
+    $("#inputForm").submit();
+    showInputQues();
+});
+
+/**
+ * 显示新插试题
+ */
+function showInputQues() {
+    // 初始化
+    $("#queTab tr:first").nextAll().remove();
+    $.ajax({
+        url: "/showInputQues",
+        type: "POST",
+        success: function (data) {
+            if (data != "") {
+                $.each(data, function (index, inputQue) {
+                    var tr = $("<tr></tr>");
+                    $("<td></td>").append(index).appendTo(tr);
+                    $("<td></td>").append(inputQue.post).appendTo(tr);
+                    $("<td></td>").append(inputQue.type).appendTo(tr);
+                    $("<td></td>").append(inputQue.title).appendTo(tr);
+                    $("<td></td>").append($("<a></a>").append("查看")).appendTo(tr);
+                    $("#queTab").append(tr);
+                });
+            } else {
+                var tr = $("<tr></tr>").css("text-align", "center");
+                $("<td></td>").append("暂时还没有插入新的试题").attr("colspan", "5").appendTo(tr);
+                $("#queTab").append(tr);
+            }
+        }
+    });
+}

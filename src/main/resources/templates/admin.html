@@ -11,6 +11,53 @@
     <title>管理员</title>
 </head>
 <body>
+<!-- 模态框 -->
+<div class="modal fade" id="choiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">录入选择题</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="/inputQue" method="post" id="inputForm">
+                    <div class="form-group">
+                        <label for="post" class="col-md-2 control-label">题库</label>
+                        <div class="col-md-4">
+                            <input class="form-control" id="post" name="post">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="type" class="col-md-2 control-label">题型</label>
+                        <div class="col-md-4">
+                            <select class="form-control" id="type" name="type">
+                                <option value="">请选择</option>
+                                <option value="0">单选题</option>
+                                <option value="1">判断题</option>
+                                <option value="2">简答题</option>
+                                <option value="3">多选题</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-md-2 control-label">题目</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="title" name="title">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="saveQue">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 模态框 -->
 <div class="container-fluid">
     <div class="row">
         <div class="jumbotron col-md-12">
@@ -19,29 +66,48 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-2" id="myTabs">
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation" class="active">
                     <a href="#one" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
                 </li>
                 <li role="presentation">
-                    <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">题库录入</a>
+                    <a href="#two" aria-controls="two" role="tab" data-toggle="tab" id="que">题库录入</a>
                 </li>
                 <li role="presentation">
-                    <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+                    <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">标签页-3</a></li>
                 <li role="presentation">
-                    <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+                    <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">标签页-4</a></li>
             </ul>
         </div>
         <div class="tab-content col-md-10">
             <div role="tabpanel" class="tab-pane active" id="one">
                 <table class="table table-bordered" id="userTab"></table>
             </div>
-            <div role="tabpanel" class="tab-pane" id="profile">标签页-2</div>
+            <div role="tabpanel" class="tab-pane" id="two">
+                <div class="row">
+                    <table class="table table-bordered" id="queTab">
+                        <tr>
+                            <th>序号</th>
+                            <th>题库</th>
+                            <th>题型</th>
+                            <th>题目</th>
+                            <th>操作</th>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="btn-group col-md-2 col-md-offset-10">
+                        <a href="#" data-toggle="modal" data-target="#choiceModal" role="button"
+                           class="btn btn-primary">录入</a>
+                    </div>
+                </div>
+            </div>
             <div role="tabpanel" class="tab-pane" id="messages">标签页-3</div>
             <div role="tabpanel" class="tab-pane" id="settings">标签页-4</div>
         </div>
     </div>
+    <input type="hidden" th:value="${flag}" id="flag">
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
