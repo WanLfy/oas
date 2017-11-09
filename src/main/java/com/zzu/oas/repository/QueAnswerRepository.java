@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by qinhao on 2017/10/29.
  */
-public interface QueAnswerRepository extends JpaRepository<QueAnswer, QueAnswer.QueAnswerPK> {
+public interface QueAnswerRepository extends JpaRepository<QueAnswer, Integer> {
 
     @Query(nativeQuery = true, value = "SELECT answer FROM t_que_answer WHERE que_id=?1")
     public String findAnswerByQueId(Integer queId);

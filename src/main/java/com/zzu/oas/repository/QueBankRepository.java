@@ -18,8 +18,8 @@ public interface QueBankRepository extends JpaRepository<QueBank, Integer> {
 
     // 保存试题
     @Modifying
-    @Query(nativeQuery = true, value = "INSERT INTO t_que_bank(que_id,type,post,title) VALUES (?1,?2,?3,?4)")
-    public void insertQueBanK(int queId, int type, String post, String title);
+    @Query(nativeQuery = true, value = "INSERT INTO t_que_bank(que_id,type,post,title,des) VALUES (?1,?2,?3,?4,?5)")
+    public void insertQueBanK(int queId, int type, String post, String title, String des);
 
     // 返回最大id
     @Query(nativeQuery = true, value = "SELECT MAX(que_id) FROM t_que_bank")

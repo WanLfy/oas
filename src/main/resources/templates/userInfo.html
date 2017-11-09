@@ -30,8 +30,19 @@
                             <span th:text="${((c.index)+1+'、')+(choice.queBank.title)}"
                                   style="font-weight:bold;"></span>
                         </li>
+                        <li class="list-group-item" th:if="${choice.queBank.des!=''}">
+                            <textarea class="form-control" rows="5"
+                                      th:utext="${choice.queBank.des}"
+                                      style="resize:none;overflow:visible;border: 0;" readonly></textarea>
+                        </li>
+
                         <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
-                            th:text="${options.options}"></li><!--'&#(65+o.index);'-->
+                            th:if="${options.ourl==null}" th:text="${options.options}"></li><!--'&#(65+o.index);'-->
+                        <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
+                            th:if="${options.ourl!=null}">
+                            <div th:style="${'width:60px;height:60px;background:url(img/'+(options.ourl)+'.png) no-repeat;'}"></div>
+                        </li>
+
                         <li class="list-group-item list-group-item-info"
                             th:text="'用户答案：'+${se.answers[(choice.queBank.queId)].userAnswer[0]}"></li>
                         <li class="list-group-item list-group-item-success"
@@ -60,6 +71,11 @@
                             <span class="glyphicon glyphicon-remove" style="color: red;"></span>
                             <span th:text="${((c.index)+1+'、')+(choices.queBank.title)}"
                                   style="font-weight:bold;"></span>
+                        </li>
+                        <li class="list-group-item" th:if="${choices.queBank.des!=''}">
+                            <textarea class="form-control" rows="5"
+                                      th:utext="${choices.queBank.des}"
+                                      style="resize:none;overflow:visible;border: 0;" readonly></textarea>
                         </li>
                         <li class="list-group-item" th:each="options,o:${choices.queOptionsList}"
                             th:text="${options.options}"></li>
@@ -96,6 +112,11 @@
                             <span th:text="${((j.index)+1+'、')+(judge.title)}"
                                   style="font-weight:bold;"></span>
                         </li>
+                        <li class="list-group-item" th:if="${judge.des!=''}">
+                            <textarea class="form-control" rows="5"
+                                      th:utext="${judge.des}"
+                                      style="resize:none;overflow:visible;border: 0;" readonly></textarea>
+                        </li>
                         <li class="list-group-item list-group-item-info"
                             th:text="(${se.answers[(judge.queId)].userAnswer[0]})==0?'用户答案：错':'用户答案：对'"></li>
                         <li class="list-group-item list-group-item-success"
@@ -112,11 +133,20 @@
             </div>
             <!-- th:utext 可以显示富文本内容 -->
             <div class="panel-body">
-                <div th:each="shortt:${se.shortList}">
-                    <textarea class="form-control" rows="15" style="resize:none;overflow:visible"
-                              th:utext="(${se.answers[(shortt.queId)].userAnswer[0]})" disabled></textarea><br/>
-                    <textarea class="form-control" rows="5" style="resize:none;overflow:visible"
-                              th:utext="(${se.answers[(shortt.queId)].sureAnswer[0]})" disabled></textarea>
+                <div th:each="shortt,s:${se.shortList}">
+                    <ul class="list-group">
+                        <li class="list-group-item" th:text="${((s.index)+1+'、')+(shortt.title)}"></li>
+                        <li class="list-group-item">
+                             <textarea class="form-control" rows="10" style="resize:none;overflow:visible"
+                                       th:utext="(${se.answers[(shortt.queId)].userAnswer[0]})" readonly></textarea>
+                        </li>
+                        <li class="list-group-item">
+                            <textarea class="form-control" rows="8" style="resize:none;overflow:visible"
+                                      th:utext="(${se.answers[(shortt.queId)].sureAnswer[0]})" readonly></textarea>
+                        </li>
+                    </ul>
+
+
                 </div>
             </div>
         </div>

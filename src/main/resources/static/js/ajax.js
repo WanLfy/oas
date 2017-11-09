@@ -56,19 +56,19 @@ $("#que").click(function () {
 $("#choiceModal").on("hidden.bs.modal", function () {
     $("input").val("");
     $("select").val("");
-    $("#title").parent().parent().nextAll().remove();
+    $("#des").parent().parent().nextAll().remove();
 });
 
 /**
  * 插入题型
  */
 $("#type").change(function () {
-    $("#title").parent().parent().nextAll().remove();
+    $("#des").parent().parent().nextAll().remove();
     var divO = $("<div></div>").addClass("form-group");
-    var divI = $("<div></div>").addClass("col-md-6");
+    var divI = $("<div></div>").addClass("col-md-8");
     var labelO = $("<label></label>").addClass("col-md-2 control-label").append("选项");
     var divOa = $("<div></div>").addClass("form-group");
-    var divIa = $("<div></div>").addClass("col-md-6");
+    var divIa = $("<div></div>").addClass("col-md-8");
     var labelA = $("<label></label>").addClass("col-md-2 control-label").append("答案");
     var type = $("#type").val();
 
@@ -127,27 +127,6 @@ $("#saveQue").click(function () {
     $("#inputForm").submit();
     $("#inputForm :input").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").remove("selected");//核心
     showInputQues();
-});
-
-/**
- * 保存试题
- */
-$("#commitInputQues").click(function () {
-
-    if ($("#queTab tr").size() < 3) {
-        alert("新录入试卷不能为空");
-        return false;
-    }
-    $.ajax({
-        url: "/commitInputQues",
-        type: "POST",
-        success: function (data) {
-            if (data) {
-                alert("试卷保存成功");
-                showInputQues();
-            }
-        }
-    });
 });
 
 /**

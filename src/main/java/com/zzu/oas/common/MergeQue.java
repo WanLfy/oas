@@ -32,6 +32,7 @@ public class MergeQue {
                         QueOptions qo = new QueOptions();
                         qo.setQueId(options.getQueId());
                         qo.setOptions(options.getOptions().trim());
+                        qo.setOurl(options.getOurl());
                         matchOptionsList.add(qo);
                     }
                 }

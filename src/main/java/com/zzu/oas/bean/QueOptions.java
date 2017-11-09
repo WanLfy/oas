@@ -17,7 +17,8 @@ public class QueOptions {
     @Id
     @Column(name = "options")
     private String options;
-
+    @Column
+    private String ourl;
 
     public int getQueId() {
         return queId;
@@ -56,11 +57,20 @@ public class QueOptions {
         }
     }
 
+    public String getOurl() {
+        return ourl;
+    }
+
+    public void setOurl(String ourl) {
+        this.ourl = ourl;
+    }
+
     @Override
     public String toString() {
         return "QueOptions{" +
                 "queId=" + queId +
                 ", options='" + options + '\'' +
+                ", ourl='" + ourl + '\'' +
                 '}';
     }
 }

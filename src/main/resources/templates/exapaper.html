@@ -45,12 +45,28 @@
                                     <div class="panel-heading"
                                          th:text="${((c.index)+1+'、')+(choice.queBank.title)}"></div>
                                     <div class="panel-body">
+                                        <textarea class="form-control" rows="5"
+                                                  th:if="${choice.queBank.des!=''}"
+                                                  th:utext="${choice.queBank.des}"
+                                                  style="resize:none;overflow:visible;background-color:#ffffff;"
+                                                  readonly></textarea>
+                                        <div th:if="${choice.queBank.qurl!=null}"
+                                             th:style="${'width:400px;height:100px;background:url(img/'+(choice.queBank.qurl)+'.png) no-repeat;'}"></div>
                                         <ul class="list-group">
-                                            <li class="list-group-item" th:each="options,o:${choice.queOptionsList}">
+                                            <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
+                                                th:if="${options.ourl==null}">
                                                 <input type="radio"
                                                        th:name="${'choiceAnswer['+(c.index)+'].userAnswer'}"
                                                        th:text="${options.options}"
                                                        th:value="${options.options}"/>
+                                            </li>
+                                            <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
+                                                th:if="${options.ourl!=null}">
+                                                <input type="radio"
+                                                       th:name="${'choiceAnswer['+(c.index)+'].userAnswer'}"
+                                                       th:value="${options.options}">
+                                                <div th:style="${'width:60px;height:60px;background:url(img/'+(options.ourl)+'.png) no-repeat;'}"></div>
+                                                </input>
                                             </li>
                                         </ul>
                                     </div>
@@ -85,6 +101,11 @@
                                     <div class="panel-heading"
                                          th:text="${((c.index)+1+'、')+(choices.queBank.title)}"></div>
                                     <div class="panel-body">
+                                          <textarea class="form-control" rows="5"
+                                                    th:if="${choices.queBank.des!=''}"
+                                                    th:utext="${choices.queBank.des}"
+                                                    style="resize:none;overflow:visible;background-color:#ffffff;"
+                                                    readonly></textarea>
                                         <ul class="list-group">
                                             <li class="list-group-item" th:each="options,o:${choices.queOptionsList}">
                                                 <input type="checkbox"
@@ -123,6 +144,11 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading" th:text="${((j.index)+1+'、')+(judge.title)}"></div>
                                     <div class="panel-body">
+                                         <textarea class="form-control" rows="5"
+                                                   th:if="${judge.des!=''}"
+                                                   th:utext="${judge.des}"
+                                                   style="resize:none;overflow:visible;background-color:#ffffff;"
+                                                   readonly></textarea>
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <input type="radio" th:name="${'judgeAnswer['+(j.index)+'].userAnswer'}"
@@ -165,7 +191,7 @@
                                     <div class="panel-body">
                                     <textarea class="form-control" rows="15"
                                               th:name="${'shortAnswer['+(s.index)+'].userAnswer'}"
-                                              style="resize:none;overflow:visible"></textarea>
+                                              style="resize:none;overflow:visible;"></textarea>
                                     </div>
                                 </div>
 

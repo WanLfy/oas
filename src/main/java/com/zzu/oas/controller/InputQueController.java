@@ -35,19 +35,16 @@ public class InputQueController {
     }
 
     // 提交入库
-    @ResponseBody
-    @RequestMapping(value = "/commitInputQues", method = RequestMethod.POST)
-    public boolean commitInputQueList(Model model) {
-        boolean result = false;
+    @RequestMapping(value = "/commitInputQues", method = RequestMethod.GET)
+    public String commitInputQueList(Model model) {
         try {
             inputQueService.commitInputQueList(inputQueList);
-            result = true;
             inputQueList.clear();
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("commiterror", e.getMessage());
         }
-        return result;
+        return "admin";
     }
 
     @ResponseBody

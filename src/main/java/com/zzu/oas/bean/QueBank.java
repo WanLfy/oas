@@ -18,6 +18,10 @@ public class QueBank {
     private int type;
     @Column(length = 200)
     private String title;
+    @Column
+    private String des;
+    @Column
+    private String qurl;
 
     public int getQueId() {
         return queId;
@@ -51,6 +55,22 @@ public class QueBank {
         this.title = title;
     }
 
+    public String getQurl() {
+        return qurl;
+    }
+
+    public void setQurl(String qurl) {
+        this.qurl = qurl;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
+
     @Override
     public String toString() {
         return "QueBank{" +
@@ -58,6 +78,8 @@ public class QueBank {
                 ", post='" + post + '\'' +
                 ", type=" + type +
                 ", title='" + title + '\'' +
+                ", des='" + des + '\'' +
+                ", qurl='" + qurl + '\'' +
                 '}';
     }
 }

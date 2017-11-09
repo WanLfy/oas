@@ -19,7 +19,6 @@ import java.util.List;
 @Service
 public class InputQueServiceImpl implements InputQueService {
 
-
     @Autowired
     private QueBankRepository queBankRepository;
     @Autowired
@@ -44,7 +43,7 @@ public class InputQueServiceImpl implements InputQueService {
                 }
                 if (iq.getType() == OAS.CHOICE_TYPE || iq.getType() == OAS.CHOICES_TYPE) {
                     // 选择题保存
-                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle());
+                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle(), iq.getDes());
                     // 选项保存
                     for (String options : iq.getOptionsList()) {
                         queOptionsRepository.insertOptions(queId, options);
@@ -55,13 +54,13 @@ public class InputQueServiceImpl implements InputQueService {
                     }
                 } else if (iq.getType() == OAS.JUDGE_TYPE) {
                     // 判断题保存
-                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle());
+                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle(), iq.getDes());
                     for (String answer : iq.getAnswerList()) {
                         queAnswerRepository.insertAnswer(queId, answer);
                     }
                 } else {
                     // 简答题保存
-                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle());
+                    queBankRepository.insertQueBanK(queId, iq.getType(), iq.getPost(), iq.getTitle(), iq.getDes());
                     for (String answer : iq.getAnswerList()) {
                         queAnswerRepository.insertAnswer(queId, answer);
                     }

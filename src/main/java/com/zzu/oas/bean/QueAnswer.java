@@ -9,12 +9,11 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "t_que_answer")
-@IdClass(QueAnswer.QueAnswerPK.class)
-public class QueAnswer{
+public class QueAnswer {
     @Id
+    @GeneratedValue
+    private int id;
     private int queId;
-    @Id
-    @Column(length = 100)
     private String answer;
 
     public int getQueId() {
@@ -33,31 +32,19 @@ public class QueAnswer{
         this.answer = answer;
     }
 
-    public static class QueAnswerPK implements Serializable {
-        private int queId;
-        private String answer;
+    public int getId() {
+        return id;
+    }
 
-        public int getQueId() {
-            return queId;
-        }
-
-        public void setQueId(int queId) {
-            this.queId = queId;
-        }
-
-        public String getAnswer() {
-            return answer;
-        }
-
-        public void setAnswer(String answer) {
-            this.answer = answer;
-        }
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "QueAnswer{" +
-                "queId=" + queId +
+                "id=" + id +
+                ", queId=" + queId +
                 ", answer='" + answer + '\'' +
                 '}';
     }
