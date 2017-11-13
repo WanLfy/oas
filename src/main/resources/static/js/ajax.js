@@ -21,6 +21,7 @@ $("#user").click(function () {
                 $("<th></th>").append("邮箱").appendTo(head);
                 $("<th></th>").append("面试岗位").appendTo(head);
                 $("<th></th>").append("笔试分数").appendTo(head);
+                $("<th></th>").append("考试时间").appendTo(head);
                 $("<th></th>").append("试卷").appendTo(head);
                 tab.append(head);
                 $.each(data, function (index, user) {
@@ -32,6 +33,7 @@ $("#user").click(function () {
                     $("<td></td>").append(user.email).appendTo(line);
                     $("<td></td>").append(user.post).appendTo(line);
                     $("<td></td>").append((user.choiceSumScore + user.judgeSumScore + user.choicesSumScore)).appendTo(line);
+                    $("<td></td>").append(turnTime(user.doTime)).appendTo(line);
                     $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
                     tab.append(line);
                 });
@@ -156,4 +158,18 @@ function showInputQues() {
             }
         }
     });
+}
+
+/**
+ * 时间戳 转为 年月日
+ */
+function turnTime(da) {
+    da = new Date(da);
+    var year = da.getFullYear();
+    // 月份在 JS 中是从0开始的
+    var month = da.getMonth() + 1;
+    var day = da.getDate();
+    var hour = da.getHours();
+    var min = da.getMinutes();
+    return [year, month, day].join("-") + " " + [hour, min].join(":");
 }

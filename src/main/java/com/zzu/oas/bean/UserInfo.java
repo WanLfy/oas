@@ -1,6 +1,7 @@
 package com.zzu.oas.bean;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by qinhao on 2017/10/27 11:00.
@@ -19,6 +20,7 @@ public class UserInfo {
     private String email;
     @Column(length = 10, nullable = false)
     private String post;
+    private Date doTime;
     private int choiceSumScore;
     private int judgeSumScore;
     private int choicesSumScore;
@@ -77,6 +79,14 @@ public class UserInfo {
 
     public void setPost(String post) {
         this.post = post;
+    }
+
+    public Date getDoTime() {
+        return doTime;
+    }
+
+    public void setDoTime(Date doTime) {
+        this.doTime = doTime;
     }
 
     public int getChoiceSumScore() {

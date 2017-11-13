@@ -19,6 +19,6 @@ public class QueryUserInfoServiceImpl implements QueryUserInfoService {
 
     @Override
     public List<UserInfo> getAllUser() {
-        return userInfoRepository.findAll();
+        return userInfoRepository.getAll();
     }
 }

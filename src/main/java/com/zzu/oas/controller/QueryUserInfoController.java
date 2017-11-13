@@ -19,13 +19,11 @@ import java.util.List;
 public class QueryUserInfoController {
     @Autowired
     private QueryUserInfoService queryUserInfoService;
-    @Autowired
-    private QueryUserExaService queryUserExaService;
 
     @GetMapping(value = "/getUser")
     public List<UserInfo> getAllUser() {
         return queryUserInfoService.getAllUser();
     }
-    
+
 
 }

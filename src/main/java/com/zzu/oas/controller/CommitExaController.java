@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -28,6 +29,7 @@ public class CommitExaController {
             Map<String, Integer> map = commitExaService.checkExaPaper(answer);
             HttpSession session = request.getSession();
             UserInfo user = (UserInfo) session.getAttribute("user");
+            user.setDoTime(new Date());
             user.setChoiceSumScore(map.get("choiceSumScore"));
             user.setJudgeSumScore(map.get("judgeSumScore"));
             user.setChoicesSumScore(map.get("choicesSumScore"));
