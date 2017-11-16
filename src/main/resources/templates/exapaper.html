@@ -19,7 +19,6 @@
 
     <div class="row col-sm-10 col-sm-offset-1" style="padding-top: 0px">
         <form action="/commitExaPaper" th:object="${answer}" method="post" class="form-group" id="userExaForm">
-
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <!-- 选择题 begin -->
                 <div class="panel panel-default">
@@ -57,7 +56,7 @@
                                                 th:if="${options.ourl==null}">
                                                 <input type="radio"
                                                        th:name="${'choiceAnswer['+(c.index)+'].userAnswer'}"
-                                                       th:text="${options.options}"
+                                                       th:text="'  '+${options.options}"
                                                        th:value="${options.options}"/>
                                             </li>
                                             <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
@@ -110,7 +109,7 @@
                                             <li class="list-group-item" th:each="options,o:${choices.queOptionsList}">
                                                 <input type="checkbox"
                                                        th:name="${'choicesAnswer['+(c.index)+'].answerList['+(o.index)+']'}"
-                                                       th:text="${options.options}"
+                                                       th:text="'  '+${options.options}"
                                                        th:value="${options.options}"/>
                                             </li>
                                         </ul>
@@ -152,11 +151,11 @@
                                         <ul class="list-group">
                                             <li class="list-group-item">
                                                 <input type="radio" th:name="${'judgeAnswer['+(j.index)+'].userAnswer'}"
-                                                       value="1"/>正确
+                                                       value="1"/> 正确
                                             </li>
                                             <li class="list-group-item">
                                                 <input type="radio" th:name="${'judgeAnswer['+(j.index)+'].userAnswer'}"
-                                                       value="0"/>错误
+                                                       value="0"/> 错误
                                             </li>
                                         </ul>
                                     </div>
@@ -189,9 +188,14 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading" th:text="${((s.index)+1+'、')+(shortt.title)}"></div>
                                     <div class="panel-body">
-                                    <textarea class="form-control" rows="15"
-                                              th:name="${'shortAnswer['+(s.index)+'].userAnswer'}"
-                                              style="resize:none;overflow:visible;"></textarea>
+                                        <textarea class="form-control" rows="8"
+                                                  th:if="${shortt.des!=''}"
+                                                  th:utext="${shortt.des}"
+                                                  style="resize:none;overflow:visible;background-color:#ffffff;"
+                                                  readonly></textarea>
+                                        <textarea class="form-control" rows="15"
+                                                  th:name="${'shortAnswer['+(s.index)+'].userAnswer'}"
+                                                  style="resize:none;overflow:visible;"></textarea>
                                     </div>
                                 </div>
 
@@ -201,21 +205,28 @@
                 </div>
                 <!-- 简答题 end -->
             </div>
+            <input type="hidden" th:value="${session.flag}" id="flag"/>
         </form>
         <div class="col-sm-2 col-sm-offset-10">
             <button class="btn btn-danger">放弃</button>
-            <button class="btn btn-primary" id="subBtn">提交</button>
+            <button class="btn btn-primary" id="subBtn" disabled>提交</button>
         </div>
     </div>
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
-<script type="text/javascript">
-    // 手动提交试卷
+<script src="js/common.js"></script>
+<script type="text/javascript" language="JavaScript">
+    $(document).ready(function () {
+        var flag = getCookie("FLAG");
+        if (flag) {
+            $("#subBtn").removeAttr("disabled");
+        }
+    });
     $("#subBtn").click(function () {
+        delCookie("FLAG");
         $("#userExaForm").submit();
     });
-
 </script>
 </body>
 </html>

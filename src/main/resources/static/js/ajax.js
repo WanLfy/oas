@@ -58,6 +58,7 @@ $("#que").click(function () {
 $("#choiceModal").on("hidden.bs.modal", function () {
     $("input").val("");
     $("select").val("");
+    $("textarea").val("");
     $("#des").parent().parent().nextAll().remove();
 });
 
@@ -126,9 +127,21 @@ $("#type").change(function () {
  * 缓存试题
  */
 $("#saveQue").click(function () {
-    $("#inputForm").submit();
-    $("#inputForm :input").not(":button, :submit, :reset, :hidden").val("").removeAttr("checked").remove("selected");//核心
-    showInputQues();
+    // var formdata = decodeURIComponent($("#inputForm").serializeObject(), true);
+    var formdata = JSON.stringify($("#inputForm").serializeObject());
+    $.ajax({
+        url: "/inputQue",
+        type: "POST",
+        data: {"json": formdata},
+        success: function (data) {
+            // 隐藏模态框
+            $("#choiceModal").modal("hide");
+            showInputQues();
+        },
+        error: function () {
+            alert("插入失败,请重试!");
+        }
+    });
 });
 
 /**
@@ -173,3 +186,20 @@ function turnTime(da) {
     var min = da.getMinutes();
     return [year, month, day].join("-") + " " + [hour, min].join(":");
 }
+
+// form 转 json
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};

@@ -35,7 +35,9 @@
                                       th:utext="${choice.queBank.des}"
                                       style="resize:none;overflow:visible;border: 0;" readonly></textarea>
                         </li>
-
+                        <li class="list-group-item" th:if="${choice.queBank.qurl!=null}">
+                            <div th:style="${'width:400px;height:100px;background:url(img/'+(choice.queBank.qurl)+'.png) no-repeat;'}"></div>
+                        </li>
                         <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
                             th:if="${options.ourl==null}" th:text="${options.options}"></li><!--'&#(65+o.index);'-->
                         <li class="list-group-item" th:each="options,o:${choice.queOptionsList}"
@@ -138,11 +140,13 @@
                         <li class="list-group-item" th:text="${((s.index)+1+'、')+(shortt.title)}"></li>
                         <li class="list-group-item">
                              <textarea class="form-control" rows="10" style="resize:none;overflow:visible"
-                                       th:utext="(${se.answers[(shortt.queId)].userAnswer[0]})" readonly></textarea>
+                                       th:utext="'用户答案&#13;&#13;'+(${se.answers[(shortt.queId)].userAnswer[0]})"
+                                       readonly></textarea>
                         </li>
                         <li class="list-group-item">
                             <textarea class="form-control" rows="8" style="resize:none;overflow:visible"
-                                      th:utext="(${se.answers[(shortt.queId)].sureAnswer[0]})" readonly></textarea>
+                                      th:utext="'参考答案&#13;&#13;'+(${se.answers[(shortt.queId)].sureAnswer[0]})"
+                                      readonly></textarea>
                         </li>
                     </ul>
 

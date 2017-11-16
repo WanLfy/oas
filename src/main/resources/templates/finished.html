@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
-    <!--<meta http-equiv="refresh" content="5;url=/"/>-->
-    <title>用户成绩</title>
+    <meta http-equiv="content-Type" content="text/html;charset=UTF-8">
+    <title>提交完成</title>
 </head>
 <body>
 <div class="jumbotron">
-    <h3>试卷已经提交，结果将以邮箱的方式通知您。</h3>
-    <p>页面将在5秒后自动关闭</p>
+    <h3>试卷已经提交...</h3>
+    <p>页面将在<span id="show">3</span>秒后自动关闭</p>
 </div>
-</body>
-<script>
+<script type="text/javascript">
+
+    var time = 3;   //设置倒计时时间
+    function closeWindow() {   //自定义函数
+        window.setTimeout('closeWindow()', 1000);  //设置的时间函数
+        if (time > 0) {
+            document.getElementById("show").innerHTML = time;
+            time--;
+        }
+        else {
+            window.location.href = "about:blank";
+            window.close();
+        }
+    }
+
+
+    closeWindow();
 
 </script>
+</body>
 </html>

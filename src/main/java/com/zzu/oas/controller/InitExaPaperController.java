@@ -38,6 +38,7 @@ public class InitExaPaperController {
             ExaPaper exaPaper = initExaPaperService.getExaPaper(tempId);
             model.addAttribute("tempId", tempId);
             model.addAttribute("ep", exaPaper);
+            session.setAttribute("flag", true);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("initerror", e.getMessage());

@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Service
 public class QueryUserExaServiceImpl implements QueryUserExaService {
-    
+
     @Autowired
     private QueBankRepository queBankRepository;
     @Autowired
@@ -38,29 +38,33 @@ public class QueryUserExaServiceImpl implements QueryUserExaService {
             throw new Exception("用户名不能为空");
         }
         Integer tempId = userExaRepository.getTempIdByUserFlag(userFlag);
-        // 选择题
-        List<QueBank> choiceQues = queBankRepository.getQues(OAS.CHOICE_TYPE, tempId);
-        List<QueOptions> choiceOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
-        List<MergeQue> choiceList = MergeQue.getMergeQueList(choiceQues, choiceOptions);
-        // 判断题
-        List<QueBank> judgeQues = queBankRepository.getQues(OAS.JUDGE_TYPE, tempId);
-        // 简答题
-        List<QueBank> shortQues = queBankRepository.getQues(OAS.SHORT_TYPE, tempId);
-        // 多选题
-        List<QueBank> choicesQues = queBankRepository.getQues(OAS.CHOICES_TYPE, tempId);
-        List<QueOptions> choicesOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
-        List<MergeQue> choicesList = MergeQue.getMergeQueList(choicesQues, choicesOptions);
-        // 答案
-        Map<Integer, SureAndUser> answers = SureAndUser.getSureAndUserMap(
-                exaTemplateRepository.getQueIdByTempId(tempId),
-                queAnswerRepository.getSureAnswer(tempId),
-                userExaRepository.findUserExasByUserFlag(userFlag));
-        // 生成试卷
-        showExa.setChoiceList(choiceList);
-        showExa.setChoicesList(choicesList);
-        showExa.setJudgeList(judgeQues);
-        showExa.setShortList(shortQues);
-        showExa.setAnswers(answers);
+        if (tempId != null) {
+            // 选择题
+            List<QueBank> choiceQues = queBankRepository.getQues(OAS.CHOICE_TYPE, tempId);
+            List<QueOptions> choiceOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
+            List<MergeQue> choiceList = MergeQue.getMergeQueList(choiceQues, choiceOptions);
+            // 判断题
+            List<QueBank> judgeQues = queBankRepository.getQues(OAS.JUDGE_TYPE, tempId);
+            // 简答题
+            List<QueBank> shortQues = queBankRepository.getQues(OAS.SHORT_TYPE, tempId);
+            // 多选题
+            List<QueBank> choicesQues = queBankRepository.getQues(OAS.CHOICES_TYPE, tempId);
+            List<QueOptions> choicesOptions = queOptionsRepository.getQueOptionsByTemplate(tempId);
+            List<MergeQue> choicesList = MergeQue.getMergeQueList(choicesQues, choicesOptions);
+            // 答案
+            Map<Integer, SureAndUser> answers = SureAndUser.getSureAndUserMap(
+                    exaTemplateRepository.getQueIdByTempId(tempId),
+                    queAnswerRepository.getSureAnswer(tempId),
+                    userExaRepository.findUserExasByUserFlag(userFlag));
+            // 生成试卷
+            showExa.setChoiceList(choiceList);
+            showExa.setChoicesList(choicesList);
+            showExa.setJudgeList(judgeQues);
+            showExa.setShortList(shortQues);
+            showExa.setAnswers(answers);
+        } else {
+            throw new Exception("查询错误,tempId为null");
+        }
         return showExa;
     }
 }

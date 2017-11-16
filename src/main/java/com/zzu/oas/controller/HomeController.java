@@ -28,7 +28,7 @@ public class HomeController {
 
     @RequestMapping(value = "/adminIndex", method = RequestMethod.POST)
     public String adminIndex(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
-        if (username != null && password != null && "admin".equals(username) && "1234".equals(password)) {
+        if (username != null && password != null && "admin".equals(username) && "primetonsge".equals(password)) {
             return "admin";
         } else {
             model.addAttribute("msg", "登录失败");

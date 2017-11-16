@@ -5,6 +5,7 @@ import com.zzu.oas.common.DoAnswer;
 import com.zzu.oas.service.CommitExaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,7 +25,7 @@ public class CommitExaController {
 
     // 提交试卷
     @RequestMapping(value = "/commitExaPaper")
-    public String commit(@ModelAttribute("answer") DoAnswer answer, HttpServletRequest request) {
+    public String commit(@ModelAttribute("answer") DoAnswer answer, HttpServletRequest request, Model model) {
         try {
             Map<String, Integer> map = commitExaService.checkExaPaper(answer);
             HttpSession session = request.getSession();
@@ -35,6 +36,9 @@ public class CommitExaController {
             user.setChoicesSumScore(map.get("choicesSumScore"));
             // 存用户信息
             commitExaService.saveUserInfo(user, answer);
+            // 删除session中user
+            session.removeAttribute("user");
+            session.removeAttribute("flag");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -61,6 +61,9 @@ public class CommitExaServiceImpl implements CommitExaService {
     @Transactional
     @Override
     public void saveUserInfo(UserInfo user, DoAnswer da) throws Exception {
+        if (user == null) {
+            throw new Exception("用户信息为空");
+        }
         // 保存用户信息
         userInfoRepository.save(user);
         // 保存用户试卷
@@ -70,20 +73,32 @@ public class CommitExaServiceImpl implements CommitExaService {
         List<ChoicesAnswer> choicesAnswer = da.getChoicesAnswer();
         if (choiceAnswer != null && choiceAnswer.size() != 0) {
             for (UserExa c : choiceAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), c.getUserAnswer(), OAS.CHOICE_TYPE);
+                if (c.getUserAnswer() != null) {
+                    userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), c.getUserAnswer(), OAS.CHOICE_TYPE);
+                } else {
+                    userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), "", OAS.CHOICE_TYPE);
+                }
             }
         }
         if (judgeAnswer != null && judgeAnswer.size() != 0) {
             for (UserExa j : judgeAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), j.getTempId(), j.getQueId(), j.getUserAnswer(), OAS.JUDGE_TYPE);
+                if (j.getUserAnswer() != null) {
+                    userExaRepository.saveUserExa(user.getUserFlag(), j.getTempId(), j.getQueId(), j.getUserAnswer(), OAS.JUDGE_TYPE);
+                } else {
+                    userExaRepository.saveUserExa(user.getUserFlag(), j.getTempId(), j.getQueId(), "", OAS.JUDGE_TYPE);
+                }
             }
         }
         if (shortAnswer != null && shortAnswer.size() != 0) {
             for (UserExa s : shortAnswer) {
-                userExaRepository.saveUserExa(user.getUserFlag(), s.getTempId(), s.getQueId(), s.getUserAnswer(), OAS.SHORT_TYPE);
+                if (s.getUserAnswer() != null) {
+                    userExaRepository.saveUserExa(user.getUserFlag(), s.getTempId(), s.getQueId(), s.getUserAnswer(), OAS.SHORT_TYPE);
+                } else {
+                    userExaRepository.saveUserExa(user.getUserFlag(), s.getTempId(), s.getQueId(), "", OAS.SHORT_TYPE);
+                }
             }
         }
-        if (choiceAnswer != null && choiceAnswer.size() != 0) {
+        if (choicesAnswer != null && choicesAnswer.size() != 0) {
             for (ChoicesAnswer c : choicesAnswer) {
                 List<String> answerList = c.getAnswerList();
                 if (answerList != null) {
@@ -93,7 +108,7 @@ public class CommitExaServiceImpl implements CommitExaService {
                         }
                     }
                 } else {
-                    userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), null, OAS.CHOICES_TYPE);
+                    userExaRepository.saveUserExa(user.getUserFlag(), c.getTempId(), c.getQueId(), "", OAS.CHOICES_TYPE);
                 }
             }
         }
@@ -112,20 +127,16 @@ public class CommitExaServiceImpl implements CommitExaService {
         float num = 0;
         for (ChoicesAnswer answer : answerList) {
             if (answer.getAnswerList() != null && answer.getAnswerList().size() != 0) {
-                // 全对满分
-                if (answer.getAnswerList().containsAll(queAnswerRepository.findAnswersByQueId(answer.getQueId()))) {
-                    num = num + score;
-                    continue;
-                }
                 // 多选零分
                 if (answer.getAnswerList().size() > queAnswerRepository.findAnswersByQueId(answer.getQueId()).size()) {
                     continue;
-                } else {
-                    // 答对部分
-                    num = num + Check.getScore(queAnswerRepository.findAnswersByQueId(answer.getQueId()), answer.getAnswerList());
+                }
+                // 全对满分
+                if (answer.getAnswerList().containsAll(queAnswerRepository.findAnswersByQueId(answer.getQueId()))) {
+                    num++;
                 }
             }
         }
-        return num;
+        return num * score;
     }
 }

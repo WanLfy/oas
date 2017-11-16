@@ -33,7 +33,7 @@
     <input type="hidden" id="initerror" th:value="${initerror}">
     <!-- form -->
     <div class="row">
-        <form class="form-horizontal" action="/initExaPaper" method="post" id="infoForm">
+        <form class="form-horizontal" action="/initExaPaper" method="post" target="_blank" id="infoForm">
             <div class="col-md-11 col-md-offset-1">
                 <div class="row">
                     <div class="form-group">
@@ -92,8 +92,8 @@
                             <select class="col-sm-2 form-control" id="post" name="post">
                                 <option value="">请选择</option>
                                 <option value="2017java">Java开发人员</option>
-                                <option value="test">测试人员</option>
-                                <option value="c">C开发人员</option>
+                                <option value="2017c">C开发人员</option>
+                                <!--<option value="c">C开发人员</option>-->
                             </select>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
             <div class="col-md-11 col-md-offset-1">
                 <div class="row">
                     <div class="col-sm-2 col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary">开始考试</button>
+                        <button type="button" class="btn btn-primary" id="startExam">开始考试</button>
                     </div>
                 </div>
             </div>
@@ -116,6 +116,7 @@
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/common.js"></script>
 <script type="text/javascript">
     $(function () {
         var initerror = $("#initerror").val();
@@ -124,6 +125,38 @@
             $("#initerror").val("");
         }
     })
+    // 表单验证
+    $("#startExam").click(function () {
+        if ($("#name").val() == "") {
+            alert("姓名不能为空");
+            return false;
+        }
+        if ($("#school").val() == "") {
+            alert("学校不能为空");
+            return false;
+        }
+        if ($("#major").val() == "") {
+            alert("专业不能为空");
+            return false;
+        }
+        if ($("#phone").val() == "" || $("#phone").val().length != 11) {
+            alert("手机号填写有误");
+            return false;
+        }
+        if ($("#email").val() == "") {
+            alert("邮箱不能为空");
+            return false;
+        }
+        if ($("#post").val() == "") {
+            alert("请选择应聘岗位");
+            return false;
+        }
+        setCookie('FLAG', true);
+        $("#infoForm").submit();
+        $("input").val("");
+        $("select").val("");
+    });
+
 
 </script>
 </body>
