@@ -139,15 +139,19 @@
                     <ul class="list-group">
                         <li class="list-group-item" th:text="${((s.index)+1+'、')+(shortt.title)}"></li>
                         <li class="list-group-item">
-                             <textarea class="form-control" rows="10" style="resize:none;overflow:visible"
-                                       th:utext="'用户答案&#13;&#13;'+(${se.answers[(shortt.queId)].userAnswer[0]})"
-                                       readonly></textarea>
-                        </li>
-                        <li class="list-group-item">
-                            <textarea class="form-control" rows="8" style="resize:none;overflow:visible"
-                                      th:utext="'参考答案&#13;&#13;'+(${se.answers[(shortt.queId)].sureAnswer[0]})"
+                        <textarea class="form-control" rows="8"
+                                  style="resize:none;overflow:visible;"
+                                  th:if="${shortt.des!=''}" th:utext="${shortt.des}"
+                                  readonly></textarea>
+                            <textarea class="form-control" rows="10" style="resize:none;overflow:visible"
+                                      th:utext="'用户答案：&#13;'+(${se.answers[(shortt.queId)].userAnswer[0]})+'&#13;&#13;参考答案：'+'&#13;'+(${se.answers[(shortt.queId)].sureAnswer[0]})"
                                       readonly></textarea>
                         </li>
+                        <!--<li class="list-group-item">-->
+                        <!--<textarea class="form-control" rows="8" style="resize:none;overflow:visible"-->
+                        <!--th:utext="'参考答案&#13;&#13;'+(${se.answers[(shortt.queId)].sureAnswer[0]})"-->
+                        <!--readonly></textarea>-->
+                        <!--</li>-->
                     </ul>
 
 
