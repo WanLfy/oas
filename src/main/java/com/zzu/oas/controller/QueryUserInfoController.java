@@ -5,6 +5,8 @@ import com.zzu.oas.common.ShowExa;
 import com.zzu.oas.service.QueryUserExaService;
 import com.zzu.oas.service.QueryUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,13 +19,21 @@ import java.util.List;
  */
 @RestController
 public class QueryUserInfoController {
+
+    private static final int USERINFO_PAGESIZE = 8;
     @Autowired
     private QueryUserInfoService queryUserInfoService;
 
     @GetMapping(value = "/getUser")
     public List<UserInfo> getAllUser() {
+        // Page<UserInfo> ppp = queryUserInfoService.getAllUsers(pn, USERINFO_PAGESIZE);
         return queryUserInfoService.getAllUser();
     }
 
+    @GetMapping(value = "/getUsers")
+    public Page<UserInfo> getAllUsers(@RequestParam("pn") int pn) {
+        Page<UserInfo> userInfoPage = queryUserInfoService.getAllUsers(pn, USERINFO_PAGESIZE);
+        return userInfoPage;
+    }
 
 }

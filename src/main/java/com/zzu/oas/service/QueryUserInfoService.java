@@ -1,6 +1,7 @@
 package com.zzu.oas.service;
 
 import com.zzu.oas.bean.UserInfo;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ import java.util.List;
 public interface QueryUserInfoService {
 
     public List<UserInfo> getAllUser();
+
+    public Page<UserInfo> getAllUsers(int pageNumber, int pageSize);
 }
