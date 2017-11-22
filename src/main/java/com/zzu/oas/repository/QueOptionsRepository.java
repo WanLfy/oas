@@ -16,6 +16,10 @@ public interface QueOptionsRepository extends JpaRepository<QueOptions, QueOptio
     @Query(nativeQuery = true, value = "SELECT * FROM t_que_options o WHERE o.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?1)")
     public List<QueOptions> getQueOptionsByTemplate(int tempId);
 
+    //
+    @Query(nativeQuery = true, value = "SELECT * FROM t_que_options o WHERE o.que_id IN (SELECT t.que_id FROM t_user_exa t WHERE t.user_flag=?1)")
+    public List<QueOptions> getQueOptionsByUserFlag(String userFlag);
+
     // 插入选项
     @Modifying
     @Query(nativeQuery = true, value = "INSERT INTO t_que_options(que_id,options) VALUES (?1,?2)")

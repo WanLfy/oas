@@ -67,4 +67,37 @@ public class QueryUserExaServiceImpl implements QueryUserExaService {
         }
         return showExa;
     }
+
+    @Override
+    public ShowExa getUserExa(String userFlag) throws Exception {
+        ShowExa showExa = new ShowExa();
+        if (userFlag == null) {
+            throw new Exception("用户名不能为空");
+        }
+        // 选择题
+        List<QueBank> choiceQues = queBankRepository.getUserExaQues(OAS.CHOICE_TYPE, userFlag);
+        List<QueOptions> choiceOptions = queOptionsRepository.getQueOptionsByUserFlag(userFlag);
+        List<MergeQue> choiceList = MergeQue.getMergeQueList(choiceQues, choiceOptions);
+        // 判断题
+        List<QueBank> judgeQues = queBankRepository.getUserExaQues(OAS.JUDGE_TYPE, userFlag);
+        // 简答题
+        List<QueBank> shortQues = queBankRepository.getUserExaQues(OAS.SHORT_TYPE, userFlag);
+        // 多选题
+        List<QueBank> choicesQues = queBankRepository.getUserExaQues(OAS.CHOICES_TYPE, userFlag);
+        List<QueOptions> choicesOptions = queOptionsRepository.getQueOptionsByUserFlag(userFlag);
+        List<MergeQue> choicesList = MergeQue.getMergeQueList(choicesQues, choicesOptions);
+        // 答案
+        Map<Integer, SureAndUser> answers = SureAndUser.getSureAndUserMap(
+                exaTemplateRepository.getQueIdByUserFlag(userFlag),
+                queAnswerRepository.getSureAnswerByUserFlag(userFlag),
+                userExaRepository.findUserExasByUserFlag(userFlag));
+        // 生成试卷
+        showExa.setChoiceList(choiceList);
+        showExa.setChoicesList(choicesList);
+        showExa.setJudgeList(judgeQues);
+        showExa.setShortList(shortQues);
+        showExa.setAnswers(answers);
+
+        return showExa;
+    }
 }

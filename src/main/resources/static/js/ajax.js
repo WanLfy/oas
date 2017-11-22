@@ -1,5 +1,5 @@
 $(function () {
-    $("#que").click();
+    $("#user").click();
 })
 
 /**

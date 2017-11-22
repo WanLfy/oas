@@ -19,14 +19,16 @@ public class QueryUserExaController {
 
     @RequestMapping(value = "/getUserExa")
     public String getUserExa(@RequestParam("userFlag") String userFlag, Model model) {
+
         ShowExa showExa = new ShowExa();
         try {
-            showExa = queryUserExaService.getShowExa(userFlag);
+            // showExa = queryUserExaService.getShowExa(userFlag);
+            showExa = queryUserExaService.getUserExa(userFlag);
             model.addAttribute("se", showExa);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "/userinfo";
+        return "userInfo";
     }
 
 }

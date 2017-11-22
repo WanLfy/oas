@@ -7,6 +7,9 @@ import com.zzu.oas.common.ShowExa;
  */
 public interface QueryUserExaService {
 
-    // 展示试卷
+    // 展示试卷(..)
     public ShowExa getShowExa(String userFlag) throws Exception;
+
+    // 展示用户试卷
+    public ShowExa getUserExa(String userFlag) throws Exception;
 }

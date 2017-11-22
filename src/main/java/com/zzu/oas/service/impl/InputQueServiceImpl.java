@@ -7,6 +7,7 @@ import com.zzu.oas.repository.QueAnswerRepository;
 import com.zzu.oas.repository.QueBankRepository;
 import com.zzu.oas.repository.QueOptionsRepository;
 import com.zzu.oas.service.InputQueService;
+import groovy.lang.IntRange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +32,23 @@ public class InputQueServiceImpl implements InputQueService {
     @Transactional
     @Override
     public void commitInputQueList(List<InputQue> inputQueList) throws Exception {
-        Integer tempId = 1;
-        if (exaTemplateRepository.getMaxTempId() != null) {
-            tempId += exaTemplateRepository.getMaxTempId();
+        // 题库名称
+        String post = "";
+        if (inputQueList.size() != 0) {
+            post = inputQueList.get(0).getPost();
+        } else {
+            throw new Exception("插入题目为空");
         }
+        // 插入模板选择
+        Integer tempId = 1;
+        if (exaTemplateRepository.getTempIdByPost(post) != null) {
+            tempId = exaTemplateRepository.getTempIdByPost(post);
+        } else {
+            if (exaTemplateRepository.getMaxTempId() != null) {
+                tempId += exaTemplateRepository.getMaxTempId();
+            }
+        }
+
         if (inputQueList != null) {
             for (InputQue iq : inputQueList) {
                 Integer queId = 1;

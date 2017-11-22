@@ -16,6 +16,10 @@ public interface QueBankRepository extends JpaRepository<QueBank, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM t_que_bank b WHERE b.type=?1 AND b.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?2)")
     public List<QueBank> getQues(int type, int tempId);
 
+    // 获取用户已做试题
+    @Query(nativeQuery = true, value = "SELECT * FROM t_que_bank b WHERE b.type=?1 AND b.que_id IN (SELECT t.que_id FROM t_user_exa t WHERE t.user_flag=?2)")
+    public List<QueBank> getUserExaQues(int type, String userFlag);
+
     // 保存试题
     @Modifying
     @Query(nativeQuery = true, value = "INSERT INTO t_que_bank(que_id,type,post,title,des) VALUES (?1,?2,?3,?4,?5)")

@@ -23,6 +23,9 @@ public interface QueAnswerRepository extends JpaRepository<QueAnswer, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM t_que_answer o WHERE o.que_id IN (SELECT t.que_id FROM t_exa_template t WHERE t.temp_id=?1);")
     public List<QueAnswer> getSureAnswer(Integer tempId);
 
+    // 根获取用户对应的正确答案
+    @Query(nativeQuery = true, value = "SELECT * FROM t_que_answer o WHERE o.que_id IN (SELECT t.que_id FROM t_user_exa t WHERE t.user_flag=?1);")
+    public List<QueAnswer> getSureAnswerByUserFlag(String userFlag);
 
     // 插入答案
     @Modifying

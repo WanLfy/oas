@@ -6,6 +6,7 @@ import com.zzu.oas.service.QueryUserExaService;
 import com.zzu.oas.service.QueryUserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,8 @@ public class QueryUserInfoController {
 
     @GetMapping(value = "/getUsers")
     public Page<UserInfo> getAllUsers(@RequestParam("pn") int pn) {
-        Page<UserInfo> userInfoPage = queryUserInfoService.getAllUsers(pn, USERINFO_PAGESIZE);
+        Sort sort = new Sort(Sort.Direction.DESC, "doTime");
+        Page<UserInfo> userInfoPage = queryUserInfoService.getAllUsers(pn, USERINFO_PAGESIZE, sort);
         return userInfoPage;
     }
 
