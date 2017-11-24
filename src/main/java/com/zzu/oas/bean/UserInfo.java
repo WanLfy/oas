@@ -24,6 +24,7 @@ public class UserInfo {
     private int choiceSumScore;
     private int judgeSumScore;
     private int choicesSumScore;
+    private long useTime;
 
     public String getUserFlag() {
         return userFlag;
@@ -111,6 +112,14 @@ public class UserInfo {
 
     public void setChoicesSumScore(int choicesSumScore) {
         this.choicesSumScore = choicesSumScore;
+    }
+
+    public long getUseTime() {
+        return useTime;
+    }
+
+    public void setUseTime(long useTime) {
+        this.useTime = useTime;
     }
 
     @Override

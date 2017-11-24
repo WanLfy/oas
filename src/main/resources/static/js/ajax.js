@@ -302,7 +302,8 @@ function build_user_table(result) {
     $("<th></th>").append("邮箱").appendTo(head);
     $("<th></th>").append("面试岗位").appendTo(head);
     $("<th></th>").append("笔试分数").appendTo(head);
-    $("<th></th>").append("考试时间").appendTo(head);
+    $("<th></th>").append("考试用时(分)").appendTo(head);
+    $("<th></th>").append("交卷时间").appendTo(head);
     $("<th></th>").append("试卷").appendTo(head);
     tab.append(head);
     $.each(result.content, function (index, user) {
@@ -314,6 +315,7 @@ function build_user_table(result) {
         $("<td></td>").append(user.email).appendTo(line);
         $("<td></td>").append(user.post).appendTo(line);
         $("<td></td>").append((user.choiceSumScore + user.judgeSumScore + user.choicesSumScore)).appendTo(line);
+        $("<td></td>").append(user.useTime).appendTo(line);
         $("<td></td>").append(turnTime(user.doTime)).appendTo(line);
         $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
         tab.append(line);

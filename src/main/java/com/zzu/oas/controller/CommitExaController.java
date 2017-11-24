@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,7 +31,13 @@ public class CommitExaController {
             Map<String, Integer> map = commitExaService.checkExaPaper(answer);
             HttpSession session = request.getSession();
             UserInfo user = (UserInfo) session.getAttribute("user");
-            user.setDoTime(new Date());
+            Date commitDate = new Date();
+            long useTime = (commitDate.getTime() - user.getDoTime().getTime()) / (60 * 1000);
+            if (useTime >= 45) {
+                user.setUseTime(45);
+            } else {
+                user.setUseTime(useTime);
+            }
             user.setChoiceSumScore(map.get("choiceSumScore"));
             user.setJudgeSumScore(map.get("judgeSumScore"));
             user.setChoicesSumScore(map.get("choicesSumScore"));
@@ -38,7 +45,6 @@ public class CommitExaController {
             commitExaService.saveUserInfo(user, answer);
             // 删除session中user
             session.removeAttribute("user");
-            session.removeAttribute("flag");
         } catch (Exception e) {
             e.printStackTrace();
         }

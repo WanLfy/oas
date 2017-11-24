@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -30,6 +31,7 @@ public class InitExaPaperController {
         // 设置用户标识
         String userFlag = UUID.randomUUID().toString().substring(0, 10);
         user.setUserFlag(userFlag);
+        user.setDoTime(new Date());
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
         // 生成试卷
@@ -38,7 +40,6 @@ public class InitExaPaperController {
             ExaPaper exaPaper = initExaPaperService.getExaPaper(tempId);
             model.addAttribute("tempId", tempId);
             model.addAttribute("ep", exaPaper);
-            session.setAttribute("flag", true);
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("initerror", e.getMessage());
