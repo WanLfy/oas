@@ -5,46 +5,6 @@ $(function () {
 /**
  * 1.查询面试人员
  */
-// $("#user").click(function () {
-//     $.ajax({
-//         url: "/getUser",
-//         type: "GET",
-//         success: function (data) {
-//             var tab = $("#userTab");
-//             tab.empty();
-//             if (data != "") {
-//                 var head = $("<tr></tr>");
-//                 $("<th></th>").append("姓名").appendTo(head);
-//                 $("<th></th>").append("学校").appendTo(head);
-//                 $("<th></th>").append("专业").appendTo(head);
-//                 $("<th></th>").append("电话").appendTo(head);
-//                 $("<th></th>").append("邮箱").appendTo(head);
-//                 $("<th></th>").append("面试岗位").appendTo(head);
-//                 $("<th></th>").append("笔试分数").appendTo(head);
-//                 $("<th></th>").append("考试时间").appendTo(head);
-//                 $("<th></th>").append("试卷").appendTo(head);
-//                 tab.append(head);
-//                 $.each(data, function (index, user) {
-//                     var line = $("<tr></tr>");
-//                     $("<td></td>").append(user.name).appendTo(line);
-//                     $("<td></td>").append(user.school).appendTo(line);
-//                     $("<td></td>").append(user.major).appendTo(line);
-//                     $("<td></td>").append(user.phone).appendTo(line);
-//                     $("<td></td>").append(user.email).appendTo(line);
-//                     $("<td></td>").append(user.post).appendTo(line);
-//                     $("<td></td>").append((user.choiceSumScore + user.judgeSumScore + user.choicesSumScore)).appendTo(line);
-//                     $("<td></td>").append(turnTime(user.doTime)).appendTo(line);
-//                     $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
-//                     tab.append(line);
-//                 });
-//             } else {
-//                 var tr = $("<tr></tr>").css("text-align", "center");
-//                 $("<td></td>").append("暂时还没有面试人员的信息").attr("colspan", "8").appendTo(tr);
-//                 tab.append(tr);
-//             }
-//         }
-//     });
-// });
 $("#user").click(function () {
     to_page(1);
 });
@@ -304,7 +264,7 @@ function build_user_table(result) {
     $("<th></th>").append("笔试分数").appendTo(head);
     $("<th></th>").append("考试用时(分)").appendTo(head);
     $("<th></th>").append("交卷时间").appendTo(head);
-    $("<th></th>").append("试卷").appendTo(head);
+    $("<th></th>").append("操作").appendTo(head).attr("colspan", "2");
     tab.append(head);
     $.each(result.content, function (index, user) {
         var line = $("<tr></tr>");
@@ -318,6 +278,22 @@ function build_user_table(result) {
         $("<td></td>").append(user.useTime).appendTo(line);
         $("<td></td>").append(turnTime(user.doTime)).appendTo(line);
         $("<td></td>").append($("<a>查看</a>").attr("target", "_blank").attr("href", "/getUserExa?userFlag=" + user.userFlag)).appendTo(line);
+        $("<td></td>").append($("<a>删除</a>").bind("click", function () {
+            delete_user(user.userFlag, (result.number + 1));
+        })).appendTo(line);
         tab.append(line);
+    });
+}
+
+// 删除用户信息+试卷
+function delete_user(uf, n) {
+    $.ajax({
+        url: "/deleteUser",
+        type: "GET",
+        data: {"userFlag": uf},
+        success: function () {
+            alert("删除成功");
+            to_page(n);
+        }
     });
 }

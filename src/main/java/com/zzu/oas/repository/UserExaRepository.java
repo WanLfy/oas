@@ -22,4 +22,9 @@ public interface UserExaRepository extends JpaRepository<UserExa, Integer> {
     public Integer getTempIdByUserFlag(String userFlag);
 
     public List<UserExa> findUserExasByUserFlag(String userFlag);
+
+    // 删除用户试卷
+    @Modifying
+    @Query(nativeQuery = true, value = "DELETE FROM t_user_exa WHERE user_flag = ?1")
+    public void deleteByUserFlag(String userFlag);
 }
