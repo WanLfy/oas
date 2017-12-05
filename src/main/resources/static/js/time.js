@@ -10,7 +10,8 @@ function CountDown() {
         minutes = Math.floor(maxtime / 60);
         seconds = Math.floor(maxtime % 60);
         msg = "距离考试结束还有<b>" + minutes + "</b>分<b>" + seconds + "</b>秒";
-        document.all["timer"].innerHTML = msg;
+        document.all['timer'].innerHTML = msg;
+        document.all['myAffix'].innerHTML = msg;
         if (maxtime == 5 * 60) alert('注意，还有5分钟!');
         --maxtime;
         window.name = maxtime;

@@ -2,15 +2,13 @@ package com.zzu.oas.service.impl;
 
 import com.zzu.oas.bean.QueBank;
 import com.zzu.oas.bean.QueOptions;
-import com.zzu.oas.common.MergeQue;
-import com.zzu.oas.common.OAS;
-import com.zzu.oas.common.ShowExa;
-import com.zzu.oas.common.SureAndUser;
+import com.zzu.oas.common.*;
 import com.zzu.oas.repository.*;
 import com.zzu.oas.service.QueryUserExaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -100,4 +98,5 @@ public class QueryUserExaServiceImpl implements QueryUserExaService {
 
         return showExa;
     }
+    
 }

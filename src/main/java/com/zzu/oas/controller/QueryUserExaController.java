@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by qinhao on 2017/11/7.
  */
@@ -21,6 +24,7 @@ public class QueryUserExaController {
     public String getUserExa(@RequestParam("userFlag") String userFlag, Model model) {
 
         ShowExa showExa = new ShowExa();
+        Map<Integer, Integer> choicesRS = new HashMap<Integer, Integer>();
         try {
             // showExa = queryUserExaService.getShowExa(userFlag);
             showExa = queryUserExaService.getUserExa(userFlag);

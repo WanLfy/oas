@@ -56,7 +56,7 @@ public class InitExaPaperServiceImpl implements InitExaPaperService {
         // 生成试卷
 
         if (choiceList.size() == 0 && choicesList.size() == 0 && judgeQues.size() == 0 && shortQues.size() == 0) {
-            // 可以删除对应模板号(待优化...)
+
             throw new Exception("该模板对应试题已经不存在");
         }
         exaPaper.setChoiceList(choiceList);

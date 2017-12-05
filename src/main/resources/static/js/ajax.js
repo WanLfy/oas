@@ -193,6 +193,28 @@ function build_page_info(result) {
     // 根据参数合理化，可以直接跳转到总记录数->最后一页
 }
 
+// 显示试题模板
+function show_template(paper) {
+    var n = 1;
+    // 处理显示选择题
+    $.each(paper.choiceList, function (index, choice) {
+        $("#three").append(item_template((n++) + "、" + choice.queBank.title, choice.queBank.queId, choice.queBank.des));
+    });
+    // 处理显示多选题
+    $.each(paper.choicesList, function (index, choices) {
+        $("#three").append(item_template((n++) + "、" + choices.queBank.title, choices.queBank.queId, choices.queBank.des));
+    });
+    // 处理显示判断题
+    $.each(paper.judgeList, function (index, judge) {
+        $("#three").append(item_template((n++) + "、" + judge.title, judge.queId, judge.des));
+    });
+    // 处理显示简答题
+    $.each(paper.shortList, function (index, short) {
+        $("#three").append(item_template((n++) + "、" + short.title, short.queId, short.des));
+    });
+
+}
+
 // 处理分页条，并添加相关的动作
 function build_page_nav(result) {
     // 显示数据前先清空元素内容
@@ -261,7 +283,7 @@ function build_user_table(result) {
     $("<th></th>").append("电话").appendTo(head);
     $("<th></th>").append("邮箱").appendTo(head);
     $("<th></th>").append("面试岗位").appendTo(head);
-    $("<th></th>").append("笔试分数").appendTo(head);
+    $("<th></th>").append("参考分数").appendTo(head);
     $("<th></th>").append("考试用时(分)").appendTo(head);
     $("<th></th>").append("交卷时间").appendTo(head);
     $("<th></th>").append("操作").appendTo(head).attr("colspan", "2");
@@ -287,13 +309,63 @@ function build_user_table(result) {
 
 // 删除用户信息+试卷
 function delete_user(uf, n) {
-    $.ajax({
-        url: "/deleteUser",
-        type: "GET",
-        data: {"userFlag": uf},
-        success: function () {
-            alert("删除成功");
-            to_page(n);
-        }
-    });
+    var wc = window.confirm("确定要删除该用户信息吗？");
+    if (wc == true) {
+        $.ajax({
+            url: "/deleteUser",
+            type: "GET",
+            data: {"userFlag": uf},
+            success: function () {
+                to_page(n);
+            }
+        });
+    } else {
+        return false;
+    }
+}
+
+// 选择模板显示
+$("#selectTemp").change(function () {
+    // 初始化
+    $("#selectTemp").parent().nextAll().remove();
+    var optionVal = $(this).find("option:selected").val();
+    if (optionVal != "") {
+        $.ajax({
+            url: "/getExaPaper",
+            type: "GET",
+            data: {"post": optionVal},
+            success: function (paper) {
+                show_template(paper);
+                $('textarea').flexText();
+            }
+        });
+    }
+});
+
+// item 模板
+function item_template(title, queId, des) {
+    var oDiv = $("<div></div>").addClass("row col-md-12");
+    if (title.length > 50) {
+        title = title.substring(0, 50);
+    }
+    var a = $("<a></a>")
+        .addClass("btn btn-link")
+        .attr("role", "button")
+        .attr("data-toggle", "collapse").attr("aria-expanded", "false").attr("aria-controls", queId)
+        .attr("href", "#" + queId).append(title);
+    var iDiv = $("<div></div>").addClass("collapse").attr("id", queId);
+    var operator = $("<div></div>").addClass("col-md-12 col-md-offset-10");
+    var showDiv = $("<div></div>").addClass("col-md-12 well");
+    if (des != "") {
+        var text = $("<textarea></textarea>").val(des).attr("readonly", "readonly");
+        $("<div></div>").addClass("col-md-12").append(text).appendTo(showDiv);
+    }
+    var editBtn = $("<Button></Button>").addClass("btn btn-primary").append("修改");
+    var delBtn = $("<Button></Button>").addClass("btn btn-danger").append("删除");
+    operator.append(editBtn).append(delBtn);
+    showDiv.append(operator);
+    iDiv.append(showDiv);
+    oDiv.append(a).append(iDiv);
+    $("textarea").flexText();
+    return oDiv;
 }

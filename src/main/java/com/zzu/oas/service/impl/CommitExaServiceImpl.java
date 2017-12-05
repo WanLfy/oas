@@ -38,7 +38,7 @@ public class CommitExaServiceImpl implements CommitExaService {
         Map<String, Integer> map = new HashMap<String, Integer>();
         int choiceSumScore = 0;
         int judgeSumScore = 0;
-        float choicesSumScore = 0;
+        int choicesSumScore = 0;
 
         List<UserExa> choiceAnswer = da.getChoiceAnswer();
         List<UserExa> judgeAnswer = da.getJudgeAnswer();
@@ -54,7 +54,7 @@ public class CommitExaServiceImpl implements CommitExaService {
         }
         map.put("choiceSumScore", choiceSumScore);
         map.put("judgeSumScore", judgeSumScore);
-        map.put("choicesSumScore", (int) choicesSumScore);
+        map.put("choicesSumScore", choicesSumScore);
         return map;
     }
 
@@ -123,20 +123,36 @@ public class CommitExaServiceImpl implements CommitExaService {
         return (num * score);
     }
 
-    protected float checkMany(List<ChoicesAnswer> answerList, int score) {
-        float num = 0;
+    protected int checkMany(List<ChoicesAnswer> answerList, int score) {
+        int num = 0;
         for (ChoicesAnswer answer : answerList) {
             if (answer.getAnswerList() != null && answer.getAnswerList().size() != 0) {
-                // 多选零分
-                if (answer.getAnswerList().size() > queAnswerRepository.findAnswersByQueId(answer.getQueId()).size()) {
-                    continue;
-                }
-                // 全对满分
-                if (answer.getAnswerList().containsAll(queAnswerRepository.findAnswersByQueId(answer.getQueId()))) {
-                    num++;
+                // 全对
+                List<String> ans = queAnswerRepository.findAnswersByQueId(answer.getQueId());
+                List<String> anList = answer.getAnswerList();
+                if (listSize(anList) == ans.size()) {
+                    int n = 0;
+                    for (String an : answer.getAnswerList()) {
+                        if (ans.contains(an)) {
+                            n++;
+                        }
+                    }
+                    if (n == ans.size()) {
+                        num++;
+                    }
                 }
             }
         }
         return num * score;
+    }
+
+    protected int listSize(List<String> list) {
+        int n = 0;
+        for (String str : list) {
+            if (str != null) {
+                n++;
+            }
+        }
+        return n;
     }
 }

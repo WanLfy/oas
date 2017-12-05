@@ -6,9 +6,7 @@ import com.zzu.oas.service.InitExaPaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,5 +44,18 @@ public class InitExaPaperController {
             return "index";
         }
         return "exapaper";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getExaPaper", method = RequestMethod.GET)
+    public ExaPaper getExaPaper(@RequestParam("post") String post) {
+        ExaPaper exaPaper = null;
+        try {
+            Integer tempId = initExaPaperService.getTempId(post);
+            exaPaper = initExaPaperService.getExaPaper(tempId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return exaPaper;
     }
 }

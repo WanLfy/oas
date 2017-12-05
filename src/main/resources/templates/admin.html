@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" contents="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <style rel="stylesheet">
         body {
             overflow-y: scroll;
@@ -10,7 +11,7 @@
     </style>
     <title>管理员</title>
 </head>
-<body>
+<body style="overflow-x: hidden;text-overflow: ellipsis;white-space: nowrap;">
 <!-- 模态框 -->
 <div class="modal fade" id="choiceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -120,18 +121,21 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="three">
                 <div class="row col-md-2">
-                    <select class="form-control" id="selectTemp" name="post">
+                    <select class="form-control" id="selectTemp">
                         <option value="">选择试题模板</option>
-                        <option value="">选择试题模板</option>
+                        <option value="2017java">Java开发人员</option>
+                        <option value="2017c">C开发人员</option>
+                        <option value="2017oracle">数据库</option>
                     </select>
                 </div>
                 <div class="row col-md-12">
-                    <a class="btn btn-link" role="button" data-toggle="collapse" href="#collapseExample"
-                       aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-link" role="button" data-toggle="collapse" href="#showlist"
+                       aria-expanded="false" aria-controls="showlist">
                         列表1
                     </a>
-                    <div class="collapse" id="collapseExample">
+                    <div class="collapse" id="showlist">
                         <div class="well">
+
                         </div>
                     </div>
                 </div>
@@ -142,6 +146,7 @@
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
+<script src="js/jquery.flexText.js"></script>
 <script src="js/ajax.js"></script>
 </body>
 </html>
