@@ -21,6 +21,7 @@ public class UserExa {
     private int queId;
     @Column(nullable = false)
     private int type;
+    @Column(columnDefinition = "text")
     private String userAnswer;
 
     public int getId() {

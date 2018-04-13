@@ -1,13 +1,14 @@
 package com.zzu.oas.controller;
 
+import com.zzu.oas.util.PropertiesConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * 主页
@@ -16,8 +17,14 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class HomeController {
 
+    @Autowired
+    private PropertiesConfig config;
+
     @RequestMapping(value = "/")
-    public String home() {
+    public String home(Model model) {
+        // 初始化笔试岗位
+        Map<String, String> posts = config.getPosts();
+        model.addAttribute("posts", posts);
         return "index";
     }
 
@@ -28,7 +35,7 @@ public class HomeController {
 
     @RequestMapping(value = "/adminIndex", method = RequestMethod.POST)
     public String adminIndex(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
-        if (username != null && password != null && "admin".equals(username) && "primetonsge".equals(password)) {
+        if (username != null && password != null && "admin".equals(username) && "primeton".equals(password)) {
             return "admin";
         } else {
             model.addAttribute("msg", "登录失败");

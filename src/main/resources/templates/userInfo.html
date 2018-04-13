@@ -11,8 +11,12 @@
 
 <div class="container-fluid">
     <div class="row col-sm-10 col-sm-offset-1">
+        <div class="alert alert-success" role="alert" th:if="${successMess!=null}" th:text="${successMess}"></div>
+        <div class="alert alert-danger" role="alert" th:if="${errorMess!=null}" th:text="${errorMess}"></div>
+    </div>
+    <div class="row col-sm-10 col-sm-offset-1">
         <!-- 选择题 begin-->
-        <div class="panel panel-default">
+        <div class="panel panel-default" th:if="${se.choiceList.size()!=0}">
             <div class="panel-heading">
                 <h3 class="panel-title">单选题</h3>
             </div>
@@ -56,7 +60,7 @@
         </div>
         <!-- 选择题 end -->
         <!-- 多选题 begin-->
-        <div class="panel panel-default">
+        <div class="panel panel-default" th:if="${se.choicesList.size()!=0}">
             <div class="panel-heading">
                 <h3 class="panel-title">多选题</h3>
             </div>
@@ -96,7 +100,7 @@
         </div>
         <!-- 多选题 end-->
         <!-- 判断题 begin-->
-        <div class="panel panel-default">
+        <div class="panel panel-default" th:if="${se.judgeList.size()!=0}">
             <div class="panel-heading">
                 <h3 class="panel-title">判断题</h3>
             </div>
@@ -121,16 +125,16 @@
                                       th:utext="${judge.des}" readonly></textarea>
                         </li>
                         <li class="list-group-item list-group-item-info"
-                            th:text="(${se.answers[(judge.queId)].userAnswer[0]})==0?'用户答案：错':'用户答案：对'"></li>
+                            th:text="${se.answers[(judge.queId)].userAnswer[0]}==0?'用户答案：错':'用户答案：对'"></li>
                         <li class="list-group-item list-group-item-success"
-                            th:text="(${se.answers[(judge.queId)].sureAnswer[0]})==0?'用户答案：错':'正确答案：对'"></li>
+                            th:text="(${se.answers[(judge.queId)].sureAnswer[0]})==0?'正确答案：错':'正确答案：对'"></li>
                     </ul>
                 </div>
             </div>
         </div>
         <!-- 判断题 end-->
         <!-- 简答题 begin-->
-        <div class="panel panel-default">
+        <div class="panel panel-default" th:if="${se.shortList.size()!=0}">
             <div class="panel-heading">
                 <h3 class="panel-title">简答题</h3>
             </div>
@@ -156,8 +160,34 @@
         </div>
         <!-- 简答题 end-->
     </div>
-
-</div>
+    <div class="row">
+        <form class="form-horizontal" action="/evaluate" th:object="${userInfo}" method="post" target="_parent"
+              id="checkForm">
+            <div class="col-md-11 col-sm-offset-1">
+                <input type="hidden" th:field="*{userFlag}" th:value="${userflag}">
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">简答分数</label>
+                    <div class="col-sm-2">
+                        <input class="form-control" th:field="*{bishiScore}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label">笔试意见</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control"
+                                  th:field="*{bishiEvaluate}"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-11 col-sm-offset-1">
+                <div class="row">
+                    <div class="col-sm-2 col-sm-offset-2">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>

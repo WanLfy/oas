@@ -14,4 +14,8 @@ public interface QueryUserInfoService {
     public List<UserInfo> getAllUser();
 
     public Page<UserInfo> getAllUsers(int pageNumber, int pageSize, Sort sort);
+
+    public Integer queryBishiScore(String userFlag) throws Exception;
+
+    public String queryBishiEvaluate(String userFlag) throws Exception;
 }

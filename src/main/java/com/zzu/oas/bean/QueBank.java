@@ -16,11 +16,10 @@ public class QueBank {
     private String post;
     @Column(length = 1, nullable = false)
     private int type;
-    @Column(length = 200)
+    @Column(columnDefinition = "text")
     private String title;
-    @Column
+    @Column(columnDefinition = "text")
     private String des;
-    @Column
     private String qurl;
 
     public int getQueId() {

@@ -36,4 +36,7 @@ public interface ExaTemplateRepository extends JpaRepository<ExaTemplate, ExaTem
     // 获取用户已做题号
     @Query(nativeQuery = true, value = "SELECT t.que_id FROM t_user_exa t WHERE t.user_flag =?1")
     public List<Integer> getQueIdByUserFlag(String userFlag);
+
+    @Query(nativeQuery = true, value = "SELECT DISTINCT a.post FROM t_exa_template a ")
+    public List<String> getTempPost();
 }

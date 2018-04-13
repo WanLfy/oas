@@ -1,5 +1,6 @@
 package com.zzu.oas.service.impl;
 
+import com.zzu.oas.bean.UserInfo;
 import com.zzu.oas.repository.UserExaRepository;
 import com.zzu.oas.repository.UserInfoRepository;
 import com.zzu.oas.service.OperatorUserService;
@@ -26,4 +27,20 @@ public class OperatorUserServiceImp implements OperatorUserService {
             throw new Exception("用户标识不能为空");
         }
     }
+
+    @Override
+    public void evaluate(UserInfo user) throws Exception {
+        userInfoRepository.update(user.getBishiScore(), user.getBishiEvaluate(), user.getUserFlag());
+    }
+
+    @Override
+    public void mianshiScore(int val, String userFlag) throws Exception {
+        userInfoRepository.updateScore(val, userFlag);
+    }
+
+    @Override
+    public void mianshiEvaluate(String val, String userFlag) throws Exception {
+        userInfoRepository.updateEvaluate(val, userFlag);
+    }
+
 }

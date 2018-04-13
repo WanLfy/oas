@@ -14,6 +14,7 @@ public class QueAnswer {
     @GeneratedValue
     private int id;
     private int queId;
+    @Column(columnDefinition = "text")
     private String answer;
 
     public int getQueId() {

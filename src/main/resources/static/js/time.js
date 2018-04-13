@@ -1,6 +1,6 @@
 var maxtime;
 if (window.name == '') {
-    maxtime = 45 * 60;
+    maxtime = 60 * 60;
 } else {
     maxtime = window.name;
 }

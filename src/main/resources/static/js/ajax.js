@@ -1,12 +1,9 @@
-$(function () {
-    $("#user").click();
-})
-
 /**
  * 1.查询面试人员
  */
 $("#user").click(function () {
-    to_page(1);
+    //to_page(1, "", "");
+    initTable();
 });
 /**
  * 2.查询题库录入
@@ -158,10 +155,10 @@ $.fn.serializeObject = function () {
 };
 
 // 显示某一分页
-function to_page(pn) {
+function to_page(pn, name, post) {
     $.ajax({
         url: "/getUsers",
-        data: "pn=" + pn,
+        data: {"pn": pn, "name": name, "post": post},
         type: "GET",
         success: function (result) {
             if (result != "") {
@@ -172,7 +169,7 @@ function to_page(pn) {
                 // 2.解释并显示分页信息
                 build_page_info(result);
                 // 3.解释并显示分页条数据
-                build_page_nav(result);
+                build_page_nav(result, name, post);
             } else {
                 var tr = $("<tr></tr>").css("text-align", "center");
                 $("<td></td>").append("暂时还没有面试人员的信息").attr("colspan", "8").appendTo(tr);
@@ -188,7 +185,7 @@ function build_page_info(result) {
     // 显示数据前先清空元素内容
     $("#page_info_area").empty();
     // 显示分页信息
-    $("#page_info_area").append("第" + (result.number + 1 ) + "页，共" +
+    $("#page_info_area").append("第" + (result.number + 1) + "页，共" +
         result.totalPages + "页，总" + result.totalElements + "条记录");
     // 根据参数合理化，可以直接跳转到总记录数->最后一页
 }
@@ -216,7 +213,7 @@ function show_template(paper) {
 }
 
 // 处理分页条，并添加相关的动作
-function build_page_nav(result) {
+function build_page_nav(result, name, post) {
     // 显示数据前先清空元素内容
     $("#page_nav_area").empty();
     // BootStrap 提供的分页模板：nav>ul>li
@@ -232,10 +229,10 @@ function build_page_nav(result) {
     } else {
         // first、prePage、nextPage 和last 的 click 方法都会通过合理化参数(reasonable)插件拦截器
         first.click(function () {
-            to_page(1);
+            to_page(1, name, post);
         });
         prePage.click(function () {
-            to_page(result.number);
+            to_page(result.number, name, post);
         });
     }
     var nextPage = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
@@ -246,34 +243,34 @@ function build_page_nav(result) {
         last.addClass("disabled");
     } else {
         last.click(function () {
-            to_page(result.totalPages);
+            to_page(result.totalPages, name, post);
         });
         nextPage.click(function () {
-            to_page((result.number + 2));
+            to_page((result.number + 2), name, post);
         });
     }
     // 添加首页和前一页
     ul.append(first).append(prePage);
 
     // // 遍历添加页码
-    for (var n = 1; n <= result.totalPages; n++) {
-        var num = $("<li></li>").append($("<a></a>").append(n));
-        // 当前显示的页码成高亮显示
-        if (result.number == (n - 1)) {
-            num.addClass("active");
-        }
-        num.click(function () {
-            to_page($(this).children().text());
-        });
-        ul.append(num);
-    }
+    // for (var n = 1; n <= result.totalPages; n++) {
+    //     var num = $("<li></li>").append($("<a></a>").append(n));
+    //     // 当前显示的页码成高亮显示
+    //     if (result.number == (n - 1)) {
+    //         num.addClass("active");
+    //     }
+    //     num.click(function () {
+    //         to_page($(this).children().text(), name, post);
+    //     });
+    //     ul.append(num);
+    // }
     // 添加后一页和尾页
     ul.append(nextPage).append(last);
     $("<nav></nav>").append(ul).appendTo("#page_nav_area");
 
 }
 
-// 显示员工信息
+// 显示学生信息
 function build_user_table(result) {
     var tab = $("#userTab");
     var head = $("<tr></tr>");
@@ -316,7 +313,7 @@ function delete_user(uf, n) {
             type: "GET",
             data: {"userFlag": uf},
             success: function () {
-                to_page(n);
+                to_page(n, "", "");
             }
         });
     } else {
@@ -368,4 +365,195 @@ function item_template(title, queId, des) {
     oDiv.append(a).append(iDiv);
     $("textarea").flexText();
     return oDiv;
+}
+
+// 条件搜索
+$("#searchBtn").click(function () {
+    var name = $("#searchName").val();
+    var post = $("#searchPost").val();
+    to_page(1, name, post);
+});
+$("#searchBtn_reset").click(function () {
+    var name = $("#searchName").val("");
+    var post = $("#searchPost").val("");
+    to_page(1, "", "");
+});
+
+function mianshiScoreChange(id) {
+    var val = $('#mss' + id + "").val();
+    var flag = $('#mss' + id + "").attr('zan');
+    if (val != '') {
+        $.ajax({
+            url: '/mianshiscore',
+            data: {'userFlag': flag, 'val': val},
+            type: 'POST',
+            success: function (response) {
+                if (!response.result) {
+                    alert('修改失败');
+                    $('#userTab').bootstrapTable('refresh');
+                }
+            }
+        });
+    }
+}
+
+function mianshiEvaluateChange(id) {
+    var val = $('#mse' + id + "").val();
+    var flag = $('#mse' + id + "").attr('zan');
+    if (val != '') {
+        $.ajax({
+            url: '/mianshievaluate',
+            data: {'userFlag': flag, 'val': val},
+            type: 'POST',
+            success: function (response) {
+                if (!response.result) {
+                    alert('修改失败');
+                    $('#userTab').bootstrapTable('refresh');
+                }
+            }
+        });
+    }
+}
+
+function initTable() {
+    $('#userTab').bootstrapTable('destroy');
+    $('#userTab').bootstrapTable({
+        // ajax请求地址
+        url: '/getUser',
+        // 返回数据格式
+        dataType: 'json',
+        // 请求数据格式
+        contentType: 'application/json',
+        // 请求方式
+        method: 'get',
+        // 开启分页
+        pagination: true,
+        // 分页条循环功能
+        paginationLoop: false,
+        // 分页方式('client'或'server')
+        sidePagination: 'client',
+        // 首页页码
+        pageNumber: 1,
+        // 页面大小
+        pageSize: 5,
+        // 供选择页面数据条数
+        pageList: [5, 10, 15, 20, 'All'],
+        // 排序列名
+        sortName: 'doTime',
+        // 排序方式
+        sortOrder: 'desc',
+        search: true,
+        searchAlign: 'left',
+        buttonsAlign: 'left',
+        // ajax数据缓存
+        cache: false,
+        columns: [
+            {
+                field: 'name',
+                title: '姓名'
+            },
+            {
+                field: 'school',
+                title: '学校'
+            },
+            {
+                field: 'major',
+                title: '专业'
+            },
+            {
+                field: 'phone',
+                title: '电话'
+            },
+            {
+                field: 'email',
+                title: '邮箱'
+            }, {
+                field: 'post',
+                title: '笔试岗位'
+            }, {
+                field: 'choiceSumScore',
+                title: '单选分数'
+
+            },
+            {
+                field: 'choicesSumScore',
+                title: '多选分数'
+
+            },
+            {
+                field: 'judgeSumScore',
+                title: '判断分数'
+
+            },
+            {
+                field: 'bishiScore',
+                title: '简答分数'
+
+            },
+            {
+                title: '笔试总分',
+                formatter: function (value, row, index) {
+                    return (row.choiceSumScore + row.judgeSumScore + row.choicesSumScore + row.bishiScore);
+                }
+            },
+            {
+                field: 'doTime',
+                title: '笔试日期',
+                formatter: function (value, row, index) {
+                    return changeDateFormat(value);
+                }
+            }, {
+                field: 'useTime',
+                title: '笔试用时'
+            }
+            , {
+                title: '试卷审阅',
+                formatter: function (value, row, index) {
+                    return "<a target='_blank' href='" + "/getUserExa?userFlag=" + row.userFlag + "'>查看</a>";
+                }
+            }, {
+                title: '面试分数',
+                formatter: function (value, row, index) {
+                    return "<input type='text' value='" + row.mianshiScore + "' onchange='mianshiScoreChange(" + index + ")' id='mss" + index + "" + "' zan='" + row.userFlag + "'>";
+                }
+            }, {
+                title: '面试评估意见',
+                formatter: function (value, row, index) {
+                    var a = row.mianshiEvaluate == null ? '' : row.mianshiEvaluate;
+                    return "<input type='text' value='" + a + "' onchange='mianshiEvaluateChange(" + index + ")' id='mse" + index + "" + "' zan='" + row.userFlag + "'>";
+                }
+            }
+        ],
+        // 显示内容下拉选择
+        showColumns: true,
+        // 刷新
+        showRefresh: true,
+        showExport: true,
+        exportDataType: 'all',
+        exportTypes: ['excel'],
+        exportOptions: {
+            ignoreColumn: [13],  //忽略某一列的索引
+            fileName: '笔试人员信息表',  //文件名称设置
+            worksheetName: 'sheet1',  //表格工作区名称
+            tableName: '笔试人员信息表',
+            excelstyles: ['white', 'black', '10', 'normal']
+        }
+    });
+}
+
+// 时间戳转时间
+function changeDateFormat(cellval) {
+    // 从数据库中取出来的日期一般都用getTimestamp()方法，
+    // 例如oracle中一个字段数据类型Date,要想获得准确日期就用getTimestamp()方法
+    if (cellval != null) {
+        var date = new Date(cellval);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y + M + D + h + m + s;
+    }
+
 }

@@ -50,6 +50,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>ojdbc</groupId>-->
+        <!--<artifactId>ojdbc</artifactId>-->
+        <!--<version>6</version>-->
+        <!--</dependency>-->
+
         <!-- spring data-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

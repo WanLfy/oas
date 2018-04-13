@@ -26,6 +26,15 @@ public class UserInfo {
     private int choicesSumScore;
     private long useTime;
 
+
+    private int bishiScore;
+    @Column(columnDefinition = "text")
+    private String bishiEvaluate;
+
+    private int mianshiScore;
+    @Column(columnDefinition = "text")
+    private String mianshiEvaluate;
+
     public String getUserFlag() {
         return userFlag;
     }
@@ -122,19 +131,35 @@ public class UserInfo {
         this.useTime = useTime;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "userFlag='" + userFlag + '\'' +
-                ", name='" + name + '\'' +
-                ", school='" + school + '\'' +
-                ", major='" + major + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", post='" + post + '\'' +
-                ", choiceSumScore=" + choiceSumScore +
-                ", judgeSumScore=" + judgeSumScore +
-                ", choicesSumScore=" + choicesSumScore +
-                '}';
+    public int getBishiScore() {
+        return bishiScore;
+    }
+
+    public void setBishiScore(int bishiScore) {
+        this.bishiScore = bishiScore;
+    }
+
+    public String getBishiEvaluate() {
+        return bishiEvaluate;
+    }
+
+    public void setBishiEvaluate(String bishiEvaluate) {
+        this.bishiEvaluate = bishiEvaluate;
+    }
+
+    public int getMianshiScore() {
+        return mianshiScore;
+    }
+
+    public void setMianshiScore(int mianshiScore) {
+        this.mianshiScore = mianshiScore;
+    }
+
+    public String getMianshiEvaluate() {
+        return mianshiEvaluate;
+    }
+
+    public void setMianshiEvaluate(String mianshiEvaluate) {
+        this.mianshiEvaluate = mianshiEvaluate;
     }
 }

@@ -91,10 +91,7 @@
                         <div class="col-sm-2">
                             <select class="col-sm-2 form-control" id="post" name="post">
                                 <option value="">请选择</option>
-                                <option value="2017java">Java开发人员</option>
-                                <option value="2017c">C开发人员</option>
-                                <option value="2017oracle">数据库</option>
-                                <option value="2017test">测试人员</option>
+                                <option th:each="post:${posts}" th:value="${post.key}" th:text="${post.value}"></option>
                             </select>
                         </div>
                     </div>
