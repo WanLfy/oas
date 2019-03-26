@@ -83,9 +83,9 @@
                     <a href="#one" aria-controls="home" role="tab" data-toggle="tab" id="user">面试人员</a>
                 </li>
                 <li role="presentation">
-                    <a href="#three" aria-controls="three" role="tab" data-toggle="tab">试题模板</a></li>
+                    <a href="#three" aria-controls="three" role="tab" data-toggle="tab">模板管理</a></li>
                 <li role="presentation">
-                    <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">标签页-4</a></li>
+                    <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">试题管理</a></li>
             </ul>
         </div>
         <div class="tab-content col-md-10">
@@ -119,34 +119,21 @@
                     </div>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="three">
-                <div class="row col-md-2">
-                    <select class="form-control" id="selectTemp">
-                        <option value="">选择试题模板</option>
-                        <option value="2017java">Java开发人员</option>
-                        <option value="2017c">C开发人员</option>
-                        <option value="2017oracle">数据库</option>
-                    </select>
-                </div>
-                <div class="row col-md-12">
-                    <a class="btn btn-link" role="button" data-toggle="collapse" href="#showlist"
-                       aria-expanded="false" aria-controls="showlist">
-                        列表1
-                    </a>
-                    <div class="collapse" id="showlist">
-                        <div class="well">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="settings">标签页-4</div>
+            <div role="tabpanel" class="tab-pane" id="three"></div>
+            <div role="tabpanel" class="tab-pane" id="settings"></div>
         </div>
     </div>
 </div>
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery.flexText.js"></script>
-<script src="js/ajax.js"></script>
+<script src="js/bootstrap-table.js"></script>
+<script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/ajax.js?v=20180718"></script>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        $("#user").click();
+    })
+</script>
 </body>
 </html>

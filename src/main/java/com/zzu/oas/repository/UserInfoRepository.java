@@ -14,7 +14,8 @@ import java.util.List;
 public interface UserInfoRepository extends PagingAndSortingRepository<UserInfo, String> {
 
     // 查询所有用户信息
-    @Query(nativeQuery = true, value = "SELECT * FROM t_user_info ORDER BY do_time DESC ")
+//    @Query(nativeQuery = true, value = "SELECT user_flag,name,choice_sum_score,choices_sum_score,DATE_FORMAT(do_time,'%Y-%m-%d %H:%i:%s') AS gb,email,judge_sum_score,major,phone,post,school,use_time FROM t_user_info ORDER BY gb DESC")
+    @Query(nativeQuery = true, value = "SELECT * FROM t_user_info ORDER BY do_time DESC")
     public List<UserInfo> getAll();
 
     // 删除用户信息

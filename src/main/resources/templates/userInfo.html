@@ -33,7 +33,7 @@
                         </li>
                         <li class="list-group-item" th:if="${choice.queBank.des!=''}">
                             <textarea class="form-control"
-                                      style="background-color: #FFFFFF"
+                                      style="background-color: #FFFFFF;font-weight: bold"
                                       th:utext="${choice.queBank.des}" readonly></textarea>
                         </li>
                         <li class="list-group-item" th:if="${choice.queBank.qurl!=null}">
@@ -77,7 +77,7 @@
                         </li>
                         <li class="list-group-item" th:if="${choices.queBank.des!=''}">
                             <textarea class="form-control"
-                                      style="background-color: #FFFFFF"
+                                      style="background-color: #FFFFFF;font-weight: bold"
                                       th:utext="${choices.queBank.des}" readonly></textarea>
                         </li>
                         <li class="list-group-item" th:each="options,o:${choices.queOptionsList}"
@@ -117,7 +117,7 @@
                         </li>
                         <li class="list-group-item" th:if="${judge.des!=''}">
                             <textarea class="form-control"
-                                      style="background-color: #FFFFFF"
+                                      style="background-color: #FFFFFF;font-weight: bold"
                                       th:utext="${judge.des}" readonly></textarea>
                         </li>
                         <li class="list-group-item list-group-item-info"
@@ -142,7 +142,7 @@
                         <li class="list-group-item">
                         <textarea class="form-control"
                                   th:if="${shortt.des!=''}" th:utext="${shortt.des}"
-                                  style="background-color: #FFFFFF"
+                                  style="background-color: #FFFFFF;font-weight: bold"
                                   readonly></textarea>
                             <textarea class="form-control" style="background-color: #f5f5f5"
                                       th:utext="'用户答案：&#13;'+(${se.answers[(shortt.queId)].userAnswer[0]})+'&#13;&#13;参考答案：'+'&#13;'+(${se.answers[(shortt.queId)].sureAnswer[0]})"

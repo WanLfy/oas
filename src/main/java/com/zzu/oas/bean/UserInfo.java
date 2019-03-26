@@ -1,6 +1,7 @@
 package com.zzu.oas.bean;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,6 +22,7 @@ public class UserInfo {
     @Column(length = 10, nullable = false)
     private String post;
     private Date doTime;
+    private String doTimeStr;
     private int choiceSumScore;
     private int judgeSumScore;
     private int choicesSumScore;
@@ -120,6 +122,15 @@ public class UserInfo {
 
     public void setUseTime(long useTime) {
         this.useTime = useTime;
+    }
+
+    public String getDoTimeStr() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(getDoTime());
+    }
+
+    public void setDoTimeStr(String doTimeStr) {
+        this.doTimeStr = doTimeStr;
     }
 
     @Override

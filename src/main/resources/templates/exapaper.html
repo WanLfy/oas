@@ -45,12 +45,12 @@
                                            th:name="${'choiceAnswer['+(c.index)+'].type'}"/>
                                     <div class="panel panel-default">
                                         <div class="panel-heading"
-                                             th:text="${((c.index)+1+'、')+(choice.queBank.title)}"></div>
+                                             th:utext="${((c.index)+1+'、')+(choice.queBank.title)}"></div>
                                         <div class="panel-body">
                                         <textarea class="form-control"
                                                   th:if="${choice.queBank.des!=''}"
                                                   th:utext="${choice.queBank.des}"
-                                                  style="background-color:#F5F5F5;"
+                                                  style="background-color:#F5F5F5;font-weight: bold"
                                                   readonly></textarea>
                                             <div th:if="${choice.queBank.qurl!=null}"
                                                  th:style="${'width:400px;height:100px;background:url(img/'+(choice.queBank.qurl)+'.png) no-repeat;'}"></div>
@@ -102,12 +102,12 @@
                                            th:name="${'choicesAnswer['+(c.index)+'].type'}"/>
                                     <div class="panel panel-default">
                                         <div class="panel-heading"
-                                             th:text="${((c.index)+1+'、')+(choices.queBank.title)}"></div>
+                                             th:utext="${((c.index)+1+'、')+(choices.queBank.title)}"></div>
                                         <div class="panel-body">
                                           <textarea class="form-control"
                                                     th:if="${choices.queBank.des!=''}"
                                                     th:utext="${choices.queBank.des}"
-                                                    style="background-color:#F5F5F5;"
+                                                    style="background-color:#F5F5F5;font-weight: bold"
                                                     readonly></textarea>
                                             <ul class="list-group">
                                                 <li class="list-group-item"
@@ -147,12 +147,12 @@
                                     <input type="hidden" value="1"
                                            th:name="${'judgeAnswer['+(j.index)+'].type'}"/>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" th:text="${((j.index)+1+'、')+(judge.title)}"></div>
+                                        <div class="panel-heading" th:utext="${((j.index)+1+'、')+(judge.title)}"></div>
                                         <div class="panel-body">
                                          <textarea class="form-control"
                                                    th:if="${judge.des!=''}"
                                                    th:utext="${judge.des}"
-                                                   style="background-color:#F5F5F5;"
+                                                   style="background-color:#F5F5F5;font-weight: bold"
                                                    readonly></textarea>
                                             <ul class="list-group">
                                                 <li class="list-group-item">
@@ -195,12 +195,12 @@
                                     <input type="hidden" value="2"
                                            th:name="${'shortAnswer['+(s.index)+'].type'}"/>
                                     <div class="panel panel-default">
-                                        <div class="panel-heading" th:text="${((s.index)+1+'、')+(shortt.title)}"></div>
+                                        <div class="panel-heading" th:utext="${((s.index)+1+'、')+(shortt.title)}"></div>
                                         <div class="panel-body">
                                         <textarea class="form-control"
                                                   th:if="${shortt.des!=''}"
                                                   th:utext="${shortt.des}"
-                                                  style="background-color:#F5F5F5;"
+                                                  style="background-color:#F5F5F5;font-weight: bold"
                                                   readonly></textarea>
                                             <textarea class="form-control"
                                                       th:name="${'shortAnswer['+(s.index)+'].userAnswer'}"></textarea>
